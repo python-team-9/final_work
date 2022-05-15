@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="images">
+    <file>images/libary.jpg</file>
+  </qresource>
+  <qresource prefix="icons"/>
+</RCC>
