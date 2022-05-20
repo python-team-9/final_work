@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>机票信息查询系统</string>
+     <string>招聘信息查询系统</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
@@ -83,7 +83,7 @@
      <x>0</x>
      <y>0</y>
      <width>631</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
