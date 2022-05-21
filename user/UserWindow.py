@@ -46,7 +46,18 @@ class UserWindow(QMainWindow):
         self.model.setHorizontalHeaderLabels(self.column_name)
         self.table_view = self.ui.tableView
         self.table_view.setSelectionMode(QAbstractItemView.SingleSelection)  # 选中一个单元格
+        self.table_view.setSelectionBehavior(QAbstractItemView.SelectItems)  # 单元格选中模式
+        self.table_view.doubleClicked.connect(self.get_table_item)
+        self.table_view.clicked.connect(self.get_cell_tip)
         self.table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 使表宽度自适应
+        # self.table_view.setColumnWidth(0, 100)
+        # self.table_view.setColumnWidth(1, 130)
+        # self.table_view.setColumnWidth(2, 150)
+        # self.table_view.setColumnWidth(3, 150)
+        # self.table_view.setColumnWidth(4, 160)
+        # self.table_view.setColumnWidth(5, 165)
+        # 调节列宽度
+        self.table_view.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 表格不可编辑
         self.table_view.setModel(self.model)
         for i in range(self.all_job_datas[0]):
             for j in range(5):
@@ -54,7 +65,20 @@ class UserWindow(QMainWindow):
                 self.model.setItem(i, j, job_info)
                 job_info.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
 
+    def get_cell_tip(self):
+        """ 设置单元格提示信息 """
+        contents = self.table_view.currentIndex().data()
+        QToolTip.showText(QCursor.pos(), contents)
 
+    def get_table_item(self):
+        """获取表格中的数据"""
+        # row = self.table_view.currentIndex().row() # 获取所在行数
+        column = self.table_view.currentIndex().column()  # 获取所在列数
+        contents = self.table_view.currentIndex().data()  # 获取数据
+        # QToolTip.showText(QCursor.pos(), contents)
+        clipboard = qApp.clipboard()  # 获取剪贴板
+        clipboard.setText(contents)
+        QToolTip.showText(QCursor.pos(), contents)
 
 
     def mousePressEvent(self, event):
@@ -72,8 +96,6 @@ class UserWindow(QMainWindow):
     def mouseReleaseEvent(self, mouse_event):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-
-
 
 
 
