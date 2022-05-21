@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="5a516c7f-9c62-48e5-b35e-3385a0ac3e3e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookInformationQueryManagementSystem/BookInformationQueryManagementSystem.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookInformationQueryManagementSystem/BookInformationQueryManagementSystem.pro.user" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookInformationQueryManagementSystem/commonuserwindow.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookInformationQueryManagementSystem/commonuserwindow.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookInformationQueryManagementSystem/commonuserwindow.ui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookInformationQueryManagementSystem/main.cpp" beforeDir="false" />
+    </list>
+=======
     <list default="true" id="866813c9-a723-49ee-8d9f-70e1b1e976a5" name="Changes" comment="" />
+>>>>>>> 6cc56e432e136e4fc8308deace8c2d5c0a5b771c
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +45,11 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+<<<<<<< HEAD
+    &quot;last_opened_file_path&quot;: &quot;D:/pythoncode/main.py&quot;,
+=======
     &quot;last_opened_file_path&quot;: &quot;E:/player/python_final/final_work&quot;,
+>>>>>>> 6cc56e432e136e4fc8308deace8c2d5c0a5b771c
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
