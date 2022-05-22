@@ -1,14 +1,13 @@
 from loading import *
-from Logup.login_db import *
+import login_db
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
-
-userid = ''
-password = ''
-ismanager = False
+from PyQt5 import QtCore
+import socket
 
 
 class LoadingWindow(QMainWindow):
+    switch = QtCore.pyqtSignal()  # 切换窗口信号
     def switch_widget2(self):
         self.ui.widget.hide()
         self.hide_error()
@@ -37,6 +36,13 @@ class LoadingWindow(QMainWindow):
         self.ui.pushButton_3.clicked.connect(self.logining)
         self.ui.pushButton_6.clicked.connect(self.registering)
 
+        # 连接服务器
+        self.client = socket.socket()
+        host = '47.99.201.114'
+        port = 1010
+        self.client.connect((host, port))
+
+
         # 隐藏窗口
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
@@ -63,19 +69,35 @@ class LoadingWindow(QMainWindow):
         print(self.userid)
         self.password = self.ui.lineEdit_2.text()
         print(self.password)
-        self.ismanager = self.ui.radioButton_2.isChecked()
-        print(self.ismanager)
+        if self.ui.radioButton.isChecked():
+            self.identity = 'users'
+        elif self.ui.radioButton_2.isChecked():
+            self.identity = 'managers'
+        else:
+            self.identity = 'bosses'
         if self.userid=='':
             self.massage = '用户名为空！'
             self.show_error()
 
-        a = login(self.userid, self.password, self.ismanager)
-        if a > 0:
+        a = login_db.login(self.client, self.userid, self.password, self.identity)
+        if a == '登录成功':
             print('登录成功！')
-        else:
-            self.massage = '用户名或密码错误！'
-            print('用户名或密码错误！')
+            self.switch.emit()
+
+        elif a == '用户未注册或账号错误':
+            self.massage = '用户未注册或账号错误！'
+            print('用户未注册或账号错误！')
             self.show_error()
+        else:
+            self.massage = '密码错误！'
+            print('密码错误！')
+            self.show_error()
+        # if a > 0:
+        #     print('登录成功！')
+        # else:
+        #     self.massage = '用户名或密码错误！'
+        #     print('用户名或密码错误！')
+        #     self.show_error()
 
 
     def registering(self):
@@ -102,7 +124,7 @@ class LoadingWindow(QMainWindow):
                 print('该用户已存在！')
                 self.show_error()
             else:
-                register(self.userid, self.password, self.ismanager)
+                register(self.client, self.userid, self.password, self.ismanager)
                 print('注册成功！')
 
 if __name__ == '__main__':

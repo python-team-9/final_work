@@ -11,7 +11,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QCursor, QFont
 def getdata():
     conn = pymysql.connect(host="47.99.201.114", port=3306, user ="root", password ="Aa123456",database ="jobOfferinformation",charset ="utf8")
     sql = """
-    SELECT * FROM jobOfferDetail;
+    SELECT jobName,jobCompany,jobSalary,jobPlace FROM jobOfferDetail;
     """
     # 得到一个可以执行SQL语句的光标对象
     cursor = conn.cursor()  # 执行完毕返回的结果集默认以元组显示
@@ -41,7 +41,7 @@ class UserWindow(QMainWindow):
         self.show()
 
         self.all_job_datas = getdata()
-        self.column_name = ['工作名称', '公司', '薪酬', '工作地点', '招聘数量']
+        self.column_name = ['工作名称', '公司', '薪酬', '工作地点']
         self.model = QStandardItemModel(self.all_job_datas[0], len(self.all_job_datas[1][0]))
         self.model.setHorizontalHeaderLabels(self.column_name)
         self.table_view = self.ui.tableView
@@ -60,7 +60,7 @@ class UserWindow(QMainWindow):
         self.table_view.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 表格不可编辑
         self.table_view.setModel(self.model)
         for i in range(self.all_job_datas[0]):
-            for j in range(5):
+            for j in range(4):
                 job_info = QStandardItem(str(self.all_job_datas[1][i][j]))
                 self.model.setItem(i, j, job_info)
                 job_info.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
@@ -78,7 +78,7 @@ class UserWindow(QMainWindow):
         # QToolTip.showText(QCursor.pos(), contents)
         clipboard = qApp.clipboard()  # 获取剪贴板
         clipboard.setText(contents)
-        QToolTip.showText(QCursor.pos(), contents)
+        QToolTip.showText(QCursor.pos(), "已复制")
 
 
     def mousePressEvent(self, event):
