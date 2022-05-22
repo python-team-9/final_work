@@ -33,6 +33,7 @@ print(res)
 # 控制台打印：[{'request_return': 'login', 'login_state': '登录成功'}]
 
 # 同一用户多处登录，服务器给之前登录的客户端发送json消息[{'auto_msg':'您已在别处登录'}]并关闭连接
+# 建议接收到[{'auto_msg':'您已在别处登录'}]之后客户端不再进行和服务器的通信而直接退出登录，不用发送quit请求
 ```
 
 ​	2.退出：quit
@@ -76,3 +77,14 @@ while True:
     ...
 ```
 
+ 4. 直接执行SQL：getJobDetailSQL
+
+    例如
+
+    ```
+    jdata = [{'request':'getJobDetailSQL', 'sql':'你的sql'}]
+    client.send(json.dumps(jdata).encode())
+    jres = json.loads(m_recv(client))
+    ```
+
+    
