@@ -2,6 +2,8 @@ import sqlite3
 import json
 import socket
 
+from TCPmodule import m_recv
+
 
 def register(userid,password,ismanager):
     # identity_db = 'identity.db'
@@ -28,9 +30,15 @@ def login(client, id,password,identity):
     # '用户未注册或账号错误'
     # '密码错误'
     # '登录成功'
-    res = client.recv(1024).decode()
+    j_res = json.loads(m_recv(client))
+    res = j_res[0]
+    # res = client.recv(1024).decode()
     print(res)
-    return res
+    if res['request_return'] == 'login':
+        return res['login_state']
+    else:
+        print('服务器返回数据出错！')
+        return 'error'
 
     # identity_db = 'identity.db'
     # conn = sqlite3.connect(identity_db)

@@ -80,8 +80,8 @@ class LoadingWindow(QMainWindow):
             self.show_error()
 
         a = login_db.login(self.client, self.userid, self.password, self.identity)
-        if a == '登录成功':
-            print('登录成功！')
+        if ( a == '登录成功' or a == '您已登录' ) :
+            print('登录成功！', self.identity)
             self.switch.emit()
 
         elif a == '用户未注册或账号错误':

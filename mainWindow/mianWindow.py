@@ -20,7 +20,7 @@ class mainWindows:
         self.identity = self.logupW.identity
         self.logupW.close()
         if self.identity == 'users':
-            self.userW = user.UserWindow()
+            self.userW = user.UserWindow(self.client)
             self.userW.show()
         elif self.identity == 'bosses':
             print("登录boss")

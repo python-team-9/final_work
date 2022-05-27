@@ -1,6 +1,10 @@
+from TCPmodule import m_recv
 from userUI import *
 import pymysql
 import sys
+import json
+import _thread
+import time
 from PyQt5.QtWidgets import QWidget, QTableView, QAbstractItemView, QToolTip, qApp, QPushButton, QLabel, QVBoxLayout, \
     QHBoxLayout, QApplication, QMainWindow, QHeaderView
 
@@ -8,29 +12,10 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QCursor, QFont
 
 
-def getdata():
-    conn = pymysql.connect(host="47.99.201.114", port=3306, user ="root", password ="Aa123456",database ="jobOfferinformation",charset ="utf8")
-    sql = """
-    SELECT jobName,jobCompany,jobSalary,jobPlace FROM jobOfferDetail;
-    """
-    # 得到一个可以执行SQL语句的光标对象
-    cursor = conn.cursor()  # 执行完毕返回的结果集默认以元组显示
-    # 得到一个可以执行SQL语句并且将结果作为字典返回的游标
-    # cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-    # 执行SQL语句
-    num = cursor.execute(sql)
-    data = cursor.fetchall()
-    # 关闭光标对象
-    cursor.close()
-    # 关闭数据库连接
-    conn.close()
-    print(num)
-    print(data)
-    datas = [num, data]
-    return datas
+
 
 class UserWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, client):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -39,8 +24,54 @@ class UserWindow(QMainWindow):
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.show()
+        self.client = client
 
-        self.all_job_datas = getdata()
+
+
+        # self.table_view.setColumnWidth(0, 100)
+        # self.table_view.setColumnWidth(1, 130)
+        # self.table_view.setColumnWidth(2, 150)
+        # self.table_view.setColumnWidth(3, 150)
+        # self.table_view.setColumnWidth(4, 160)
+        # self.table_view.setColumnWidth(5, 165)
+        # 调节列宽度
+
+
+        try:
+            _thread.start_new_thread(self.getdata, (self.client,))
+        except:
+            print("启动线程失败")
+
+
+    def getdata(self, client):
+        # 直接访问数据库
+        conn = pymysql.connect(host="47.99.201.114", port=3306, user ="root", password ="Aa123456",database ="jobOfferinformation",charset ="utf8")
+        sql = """
+        SELECT jobName,jobCompany,jobSalary,jobPlace FROM jobOfferDetail;
+        """
+        # 得到一个可以执行SQL语句的光标对象
+        cursor = conn.cursor()  # 执行完毕返回的结果集默认以元组显示
+        # 得到一个可以执行SQL语句并且将结果作为字典返回的游标
+        # cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
+        # 执行SQL语句
+        num = cursor.execute(sql)
+        data = cursor.fetchall()
+        # 关闭光标对象
+        cursor.close()
+        # 关闭数据库连接
+        conn.close()
+        print(num)
+        print(data)
+        datas = [num, data]
+        self.all_job_datas = datas
+        # 请求服务器访问数据库
+        # jdata = [{'request': 'getJobDetail', 'begin': begin}]
+        # client.send(json.dumps(jdata).encode())
+        # j_res = json.loads(m_recv(client))
+        # begin += j_res[0]['num']
+        # self.all_job_datas = j_res[1:-1]
+        # print(self.all_job_datas)
+
         self.column_name = ['工作名称', '公司', '薪酬', '工作地点']
         self.model = QStandardItemModel(self.all_job_datas[0], len(self.all_job_datas[1][0]))
         self.model.setHorizontalHeaderLabels(self.column_name)
@@ -50,20 +81,17 @@ class UserWindow(QMainWindow):
         self.table_view.doubleClicked.connect(self.get_table_item)
         self.table_view.clicked.connect(self.get_cell_tip)
         self.table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 使表宽度自适应
-        # self.table_view.setColumnWidth(0, 100)
-        # self.table_view.setColumnWidth(1, 130)
-        # self.table_view.setColumnWidth(2, 150)
-        # self.table_view.setColumnWidth(3, 150)
-        # self.table_view.setColumnWidth(4, 160)
-        # self.table_view.setColumnWidth(5, 165)
-        # 调节列宽度
-        self.table_view.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 表格不可编辑
-        self.table_view.setModel(self.model)
+
         for i in range(self.all_job_datas[0]):
-            for j in range(4):
+            for j in range(len(self.all_job_datas[1][0])):
                 job_info = QStandardItem(str(self.all_job_datas[1][i][j]))
                 self.model.setItem(i, j, job_info)
                 job_info.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+
+        self.table_view.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 表格不可编辑
+        self.table_view.setModel(self.model)
+        print('线程结束')
+        return
 
     def get_cell_tip(self):
         """ 设置单元格提示信息 """
