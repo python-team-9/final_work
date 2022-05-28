@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtChart import QChartView
 
 
 class Ui_MainWindow(object):
@@ -84,14 +85,6 @@ class Ui_MainWindow(object):
         font.setFamily("幼圆")
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
-        self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, 480, 541, 341))
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.graphicsView = QtWidgets.QGraphicsView(self.frame)
-        self.graphicsView.setGeometry(QtCore.QRect(10, 0, 521, 341))
-        self.graphicsView.setObjectName("graphicsView")
         self.tableView_2 = QtWidgets.QTableView(self.centralwidget)
         self.tableView_2.setGeometry(QtCore.QRect(10, 150, 521, 321))
         self.tableView_2.setObjectName("tableView_2")
@@ -108,6 +101,9 @@ class Ui_MainWindow(object):
 "border-top-right-radius:30px;")
         self.label_8.setText("")
         self.label_8.setObjectName("label_8")
+        self.chartview = QChartView(self.centralwidget)
+        self.chartview.setGeometry(QtCore.QRect(10, 480, 521, 341))
+        self.chartview.setObjectName("chartview")
         self.label.raise_()
         self.tableView.raise_()
         self.label_2.raise_()
@@ -115,12 +111,12 @@ class Ui_MainWindow(object):
         self.label_4.raise_()
         self.label_5.raise_()
         self.label_6.raise_()
-        self.frame.raise_()
         self.tableView_2.raise_()
         self.label_7.raise_()
         self.label_8.raise_()
         self.pushButton.raise_()
         self.pushButton_2.raise_()
+        self.chartview.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -140,3 +136,4 @@ class Ui_MainWindow(object):
         self.label_5.setText(_translate("MainWindow", "小龙团"))
         self.label_6.setText(_translate("MainWindow", "2020211754"))
         self.label_7.setText(_translate("MainWindow", "已投递"))
+

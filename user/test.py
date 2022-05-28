@@ -1,3 +1,5 @@
+from PyQt5.QtChart import QPieSeries, QChart
+
 from TCPmodule import m_recv
 from userUI import *
 import pymysql
@@ -13,17 +15,17 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QCursor, QFont, QPain
 
 
 class UserWindow(QMainWindow):
-    def __init__(self, client):
+    def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.chartview.setRenderHint(QPainter.Antialiasing) #设置抗锯齿
+
 
         # 隐藏窗口
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.show()
-        self.client = client
+
 
 
 
@@ -37,13 +39,16 @@ class UserWindow(QMainWindow):
 
 
         try:
-            _thread.start_new_thread(self.getdata, (self.client,))
+            _thread.start_new_thread(self.getdata,())
         except:
             print("启动线程1失败")
+        try:
+            _thread.start_new_thread(self.getchartdetail,())
+        except:
+            print("启动线程2失败")
 
 
-
-    def getdata(self, client):
+    def getdata(self):
         # 直接访问数据库
         conn = pymysql.connect(host="47.99.201.114", port=3306, user ="root", password ="Aa123456",database ="jobOfferinformation",charset ="utf8")
         sql = """
@@ -108,7 +113,7 @@ class UserWindow(QMainWindow):
         clipboard.setText(contents)
         QToolTip.showText(QCursor.pos(), "已复制")
 
-    def getchartdetail(self, client):
+    def getchartdetail(self):
         conn = pymysql.connect(host="47.99.201.114", port=3306, user="root", password="Aa123456",
                                database="jobOfferinformation", charset="utf8")
 
@@ -126,8 +131,15 @@ class UserWindow(QMainWindow):
         cursor.close()
         # 关闭数据库连接
         conn.close()
-        print(num)
-        print(data)
+
+        self.pieseries1 = QPieSeries()  # 定义PieSeries
+        for x in data:
+            self.pieseries1.append(x[0], x[1])  # 插入第一个元素
+        self.chart1 = QChart()  # 定义QChart
+        self.chart1.addSeries(self.pieseries1)  # 将 pieseries添加到chart里
+        self.chart1.setTitle("education")  # 设置char的标题
+        self.ui.chartview.setRenderHint(QPainter.Antialiasing)  # 设置抗锯齿
+        self.ui.chartview.setChart(self.chart1)
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton and self.isMaximized() == False:

@@ -5,7 +5,7 @@ import socket
 from TCPmodule import m_recv
 
 
-def register(userid,password,ismanager):
+def register(client, id, password, name, identity):
     # identity_db = 'identity.db'
     # conn = sqlite3.connect(identity_db)
     #
@@ -20,6 +20,26 @@ def register(userid,password,ismanager):
     # # 关闭
     # cur.close()
     # conn.close()
+    sql1 = "SELECT * FROM account.{} where id=\'{}\';".format(identity, id)
+    print(sql1)
+    jdata = [{'request': 'getJobDetailSQL', 'sql': sql1}]
+    client.send(json.dumps(jdata).encode())
+    jres = json.loads(m_recv(client))
+    res = jres[0]
+    print(res)
+    # sql2 = "insert into account.users values (\'{}\',\'{}\',\'{}\')".format(id, password, name)
+    # print(sql)
+    # jdata = [{'request': 'getJobDetailSQL', 'sql': sql2}]
+    # client.send(json.dumps(jdata).encode())
+    # jres = json.loads(m_recv(client))
+    # res = jres[0]
+    # # res = client.recv(1024).decode()
+    # print(res)
+    # if res['request_return'] == 'login':
+    #     return res['login_state']
+    # else:
+    #     print('服务器返回数据出错！')
+    #     return 'error'
     print("开发中")
 
 def login(client, id,password,identity):

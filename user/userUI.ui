@@ -181,32 +181,6 @@ QPushButton:hover{
      <string>2020211754</string>
     </property>
    </widget>
-   <widget class="QFrame" name="frame">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>480</y>
-      <width>541</width>
-      <height>341</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <widget class="QGraphicsView" name="graphicsView">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>0</y>
-       <width>521</width>
-       <height>341</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
    <widget class="QTableView" name="tableView_2">
     <property name="geometry">
      <rect>
@@ -253,6 +227,16 @@ border-top-right-radius:30px;</string>
      <string/>
     </property>
    </widget>
+   <widget class="QChartView" name="chartview">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>480</y>
+      <width>521</width>
+      <height>341</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>label</zorder>
    <zorder>tableView</zorder>
    <zorder>label_2</zorder>
@@ -260,15 +244,22 @@ border-top-right-radius:30px;</string>
    <zorder>label_4</zorder>
    <zorder>label_5</zorder>
    <zorder>label_6</zorder>
-   <zorder>frame</zorder>
    <zorder>tableView_2</zorder>
    <zorder>label_7</zorder>
    <zorder>label_8</zorder>
    <zorder>pushButton</zorder>
    <zorder>pushButton_2</zorder>
+   <zorder>chartview</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">qchartview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

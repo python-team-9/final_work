@@ -115,17 +115,24 @@ class LoadingWindow(QMainWindow):
             self.show_error()
             return
         else:
-            self.ismanager = self.ui.radioButton_3.isChecked()
-            print(self.ismanager)
-
-            a = login(self.userid, self.password, self.ismanager)
-            if a > 0:
-                self.massage = '该用户已存在！'
-                print('该用户已存在！')
-                self.show_error()
+            if self.ui.radioButton_4.isChecked():
+                self.identity = 'users'
+            elif self.ui.radioButton_3.isChecked():
+                self.identity = 'managers'
             else:
-                register(self.client, self.userid, self.password, self.ismanager)
-                print('注册成功！')
+                self.identity = 'bosses'
+
+            self.name = self.ui.lineEdit_6.text()
+            print("昵称", self.name)
+
+            a = login_db.register(self.client, self.userid, self.password, self.name, self.identity)
+            # if a > 0:
+            #     self.massage = '该用户已存在！'
+            #     print('该用户已存在！')
+            #     self.show_error()
+            # else:
+            #     register(self.client, self.userid, self.password, self.ismanager)
+            #     print('注册成功！')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
