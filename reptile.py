@@ -15,6 +15,7 @@ from threading import Timer
 from datetime import datetime
 def savedata(jobNames,jobCompanys,jobSalarys,jobPlaces,jobNumbers,jobEducations,jobExperiences, jobDescribes):
     db = pymysql.connect(host="47.99.201.114", user="root", passwd="Aa123456", db="jobOfferinformation", port=3306,charset="utf8")
+    #db = pymysql.connect(host="localhost", user="root", passwd="Zyc64430628", db="jobOfferinformation", port=3306,charset="utf8")
     cursor = db.cursor()
     for i in range(len(jobNames)):
         cursor.execute(
