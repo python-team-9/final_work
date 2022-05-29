@@ -1,5 +1,5 @@
 from TCPmodule import m_recv
-from AdministratorUI1 import *
+from boosUI import *
 import pymysql
 import sys
 import json
@@ -19,7 +19,7 @@ import socket
 
 
 
-class AdministratorWindow(QMainWindow):
+class BoosWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
@@ -45,15 +45,20 @@ class AdministratorWindow(QMainWindow):
         # self.table_view.setColumnWidth(5, 165)
         # 调节列宽度
 
-        self.ui.pushButton_7.clicked.connect(self.deleteJob)
+
+        self.ui.pushButton.clicked.connect(self.min_window_clicked)
+        self.ui.pushButton_2.clicked.connect(self.close_window_clicked)
+        self.ui.pushButton_6.clicked.connect(self.releaseJobInformation)
+        """
         self.ui.pushButton_6.clicked.connect(self.search)
-        self.ui.pushButton_5.clicked.connect(self.close_window_clicked)
         self.ui.pushButton_4.clicked.connect(self.min_window_clicked)
         self.ui.lineEdit_4.returnPressed.connect(self.search)
-        self.ui.lineEdit_5.returnPressed.connect(self.deleteJob)
+        self.ui.lineEdit_5.returnPressed.connect(self.deleteJob)"""
+        self.company = "武汉万创科技有限公司"
+        self.ui.label_4.setText(self.company)
         sql = """
-                SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;
-                """
+                SELECT id,name,jobName FROM jobOfferinformation.jobOfferDetail natural join jobOfferinformation.resume natural join account.users where jobCompany = \""""\
+              +self.company+"""\""""
         try:
             _thread.start_new_thread(self.getdata, (self.client,sql))
         except:
@@ -68,6 +73,7 @@ class AdministratorWindow(QMainWindow):
         # 得到一个可以执行SQL语句并且将结果作为字典返回的游标
         # cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
         # 执行SQL语句
+        print(sql)
         num = cursor.execute(sql)
         data = cursor.fetchall()
         # 关闭光标对象
@@ -79,7 +85,6 @@ class AdministratorWindow(QMainWindow):
         """防止最后数据数为0报错，数据数为0显示空表"""
         if(num == 0):
             data = (('','','','',''))
-        self.ui.label_3.setText("招聘信息总数:"+str(num))
         datas = [num, data]
         self.all_job_datas = datas
         # 请求服务器访问数据库
@@ -90,7 +95,7 @@ class AdministratorWindow(QMainWindow):
         # self.all_job_datas = j_res[1:-1]
         # print(self.all_job_datas)
 
-        self.column_name = ['工作名称', '公司', '薪酬', '工作地点','jobOfferid']
+        self.column_name = ['账号', '名称', '应聘职位']
         self.model = QStandardItemModel(self.all_job_datas[0], len(self.all_job_datas[1][0]))
         self.model.setHorizontalHeaderLabels(self.column_name)
         self.table_view = self.ui.tableView
@@ -149,83 +154,53 @@ class AdministratorWindow(QMainWindow):
     def min_window_clicked(self):     #最小化窗口
         self.showMinimized()
 
-    def search(self):
-        text = self.ui.lineEdit_4.text()
-        searsql = """SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferinformation.jobOfferDetail where jobName like \"%"""+text+"""%\""""
-        print(searsql)
-        try:
-            _thread.start_new_thread(self.getdata, (self.client,searsql))
-        except:
-            print("启动线程失败")
-    def deleteJob(self):
-        text = self.ui.lineEdit_5.text()
-        sql = """SELECT * FROM jobOfferinformation.jobOfferDetail where jobOfferid = """+text
-        # 直接访问数据库
-        conn = pymysql.connect(host="47.99.201.114", port=3306, user="root", password="Aa123456",
-                               database="jobOfferinformation", charset="utf8")
-        # 得到一个可以执行SQL语句的光标对象
-        cursor = conn.cursor()  # 执行完毕返回的结果集默认以元组显示
-        # 得到一个可以执行SQL语句并且将结果作为字典返回的游标
-        # cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-        # 执行SQL语句
-        num = cursor.execute(sql)
-        if num == 0:
-            QMessageBox.warning(self, "警告", "jobOfferid不存在")
+    def releaseJobInformation(self):
+        jobName = self.ui.lineEdit.text()
+        if(jobName == ""):
+            QMessageBox.warning(self, "警告", "职位名称不能为空")
             return
-        sql = """delete FROM jobOfferinformation.jobOfferDetail where jobOfferid = """+text
-        cursor.execute(sql)
-        conn.commit()#不提交不会显示
-        sql = """
-                SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;
-                """
-        num = cursor.execute(sql)
-        data = cursor.fetchall()
-        # 关闭光标对象
-        cursor.close()
-        # 关闭数据库连接
-        conn.close()
-        print(num)
-        print(data)
-        """防止最后数据数为0报错，数据数为0显示空表"""
-        if(num == 0):
-            data = (('','','','',''))
-        self.ui.label_3.setText("招聘信息总数:" + str(num))
-        datas = [num, data]
-        self.all_job_datas = datas
-        # 请求服务器访问数据库
-        # jdata = [{'request': 'getJobDetail', 'begin': begin}]
-        # client.send(json.dumps(jdata).encode())
-        # j_res = json.loads(m_recv(client))
-        # begin += j_res[0]['num']
-        # self.all_job_datas = j_res[1:-1]
-        # print(self.all_job_datas)
-
-        self.column_name = ['工作名称', '公司', '薪酬', '工作地点', 'jobOfferid']
-        self.model = QStandardItemModel(self.all_job_datas[0], len(self.all_job_datas[1][0]))
-        self.model.setHorizontalHeaderLabels(self.column_name)
-        self.table_view = self.ui.tableView
-        self.table_view.setSelectionMode(QAbstractItemView.SingleSelection)  # 选中一个单元格
-        self.table_view.setSelectionBehavior(QAbstractItemView.SelectItems)  # 单元格选中模式
-        self.table_view.doubleClicked.connect(self.get_table_item)
-        self.table_view.clicked.connect(self.get_cell_tip)
-        self.table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 使表宽度自适应
-
-        for i in range(self.all_job_datas[0]):
-            for j in range(len(self.all_job_datas[1][0])):
-                job_info = QStandardItem(str(self.all_job_datas[1][i][j]))
-                self.model.setItem(i, j, job_info)
-                job_info.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-
-        self.table_view.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 表格不可编辑
-        self.table_view.setModel(self.model)
-        print('线程结束')
+        jobCompany = self.company
+        jobSalary = self.ui.lineEdit_2.text()
+        if(jobSalary == ""):
+            QMessageBox.warning(self, "警告", "薪资不能为空")
+            return
+        jobPlace = self.ui.lineEdit_3.text()
+        if (jobPlace == ""):
+            QMessageBox.warning(self, "警告", "工作地点不能为空")
+            return
+        jobNumber = self.ui.lineEdit_4.text()
+        if (jobNumber == ""):
+            QMessageBox.warning(self, "警告", "招聘人数不能为空")
+            return
+        if (not jobNumber.isdigit()):
+            QMessageBox.warning(self, "警告", "请输入正确的招聘人数")
+            return
+        jobEducation = self.ui.lineEdit_5.text()
+        if (jobEducation == ""):
+            QMessageBox.warning(self, "警告", "学历要求不能为空")
+            return
+        jobExperience = self.ui.lineEdit_6.text()
+        if (jobExperience == ""):
+            QMessageBox.warning(self, "警告", "经验要求不能为空")
+            return
+        jobDescribe = self.ui.textEdit.toPlainText()
+        if (jobDescribe == ""):
+            QMessageBox.warning(self, "警告", "职位描述不能为空")
+            return
+        db = pymysql.connect(host="47.99.201.114", user="root", passwd="Aa123456", db="jobOfferinformation", port=3306,
+                             charset="utf8")
+        cursor = db.cursor()
+        cursor.execute('INSERT INTO jobOfferDetail(jobName,jobCompany,jobSalary,jobPlace,jobDescribe,jobNumber,jobEducation,jobExperience) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)',
+                       (jobName,jobCompany,jobSalary,jobPlace,jobDescribe,jobNumber,jobEducation,jobExperience))
+        #print("OK")
+        db.commit()
+        db.close()
+        QMessageBox.about(self, "提示", "招聘发布成功")
         return
-
-
 
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    win = AdministratorWindow()
+    win = BoosWindow()
     sys.exit(app.exec_())
