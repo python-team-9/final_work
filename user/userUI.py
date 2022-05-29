@@ -15,17 +15,17 @@ from PyQt5.QtChart import QChartView
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1105, 864)
+        MainWindow.resize(1501, 968)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(0, 0, 1101, 841))
+        self.label.setGeometry(QtCore.QRect(0, 0, 1501, 931))
         self.label.setStyleSheet("background:#FFF;\n"
 "border-radius:30px;")
         self.label.setText("")
         self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(1030, 10, 16, 16))
+        self.pushButton.setGeometry(QtCore.QRect(1320, 10, 16, 16))
         self.pushButton.setStyleSheet("QPushButton{\n"
 "    border-radius:8px;\n"
 "    background-color: #336666;\n"
@@ -39,7 +39,7 @@ class Ui_MainWindow(object):
         self.pushButton.setText("")
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(1060, 10, 16, 16))
+        self.pushButton_2.setGeometry(QtCore.QRect(1350, 10, 16, 16))
         self.pushButton_2.setStyleSheet("QPushButton{\n"
 "    border-radius:8px;\n"
 "    background-color: #336666;\n"
@@ -53,10 +53,10 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText("")
         self.pushButton_2.setObjectName("pushButton_2")
         self.tableView = QtWidgets.QTableView(self.centralwidget)
-        self.tableView.setGeometry(QtCore.QRect(540, 70, 551, 751))
+        self.tableView.setGeometry(QtCore.QRect(1000, 80, 491, 831))
         self.tableView.setObjectName("tableView")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(540, 50, 68, 15))
+        self.label_2.setGeometry(QtCore.QRect(990, 50, 68, 15))
         font = QtGui.QFont()
         font.setFamily("幼圆")
         self.label_2.setFont(font)
@@ -86,7 +86,7 @@ class Ui_MainWindow(object):
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.tableView_2 = QtWidgets.QTableView(self.centralwidget)
-        self.tableView_2.setGeometry(QtCore.QRect(10, 150, 521, 321))
+        self.tableView_2.setGeometry(QtCore.QRect(10, 160, 501, 321))
         self.tableView_2.setObjectName("tableView_2")
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
         self.label_7.setGeometry(QtCore.QRect(20, 130, 68, 15))
@@ -95,15 +95,40 @@ class Ui_MainWindow(object):
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
-        self.label_8.setGeometry(QtCore.QRect(0, 0, 1101, 31))
+        self.label_8.setGeometry(QtCore.QRect(0, 0, 1501, 31))
         self.label_8.setStyleSheet("background:rgb(218,218,218);\n"
 "border-top-left-radius:30px;\n"
 "border-top-right-radius:30px;")
         self.label_8.setText("")
         self.label_8.setObjectName("label_8")
         self.chartview = QChartView(self.centralwidget)
-        self.chartview.setGeometry(QtCore.QRect(10, 480, 521, 341))
+        self.chartview.setGeometry(QtCore.QRect(0, 500, 411, 411))
         self.chartview.setObjectName("chartview")
+        self.chartview_2 = QChartView(self.centralwidget)
+        self.chartview_2.setGeometry(QtCore.QRect(410, 500, 591, 411))
+        self.chartview_2.setObjectName("chartview_2")
+        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_3.setGeometry(QtCore.QRect(860, 110, 111, 41))
+        font = QtGui.QFont()
+        font.setFamily("幼圆")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_3.setFont(font)
+        self.pushButton_3.setStyleSheet("QPushButton{\n"
+"    border:none;\n"
+"    border-radius:15px;\n"
+"    color:#fff;\n"
+"    background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #99CCCC, stop:1 #336699)\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    padding-top:15px;\n"
+"    padding-left:15px;\n"
+"}")
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.listView = QtWidgets.QListView(self.centralwidget)
+        self.listView.setGeometry(QtCore.QRect(530, 160, 451, 321))
+        self.listView.setObjectName("listView")
         self.label.raise_()
         self.tableView.raise_()
         self.label_2.raise_()
@@ -117,6 +142,9 @@ class Ui_MainWindow(object):
         self.pushButton.raise_()
         self.pushButton_2.raise_()
         self.chartview.raise_()
+        self.chartview_2.raise_()
+        self.pushButton_3.raise_()
+        self.listView.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -136,4 +164,5 @@ class Ui_MainWindow(object):
         self.label_5.setText(_translate("MainWindow", "小龙团"))
         self.label_6.setText(_translate("MainWindow", "2020211754"))
         self.label_7.setText(_translate("MainWindow", "已投递"))
+        self.pushButton_3.setText(_translate("MainWindow", "投递"))
 

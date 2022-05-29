@@ -1,4 +1,4 @@
-from PyQt5.QtChart import QPieSeries, QChart
+from PyQt5.QtChart import QPieSeries, QChart, QPieSlice
 
 from TCPmodule import m_recv
 from userUI import *
@@ -6,7 +6,7 @@ import pymysql
 import sys
 import json
 import _thread
-import time
+
 from PyQt5.QtWidgets import QWidget, QTableView, QAbstractItemView, QToolTip, qApp, QPushButton, QLabel, QVBoxLayout, \
     QHBoxLayout, QApplication, QMainWindow, QHeaderView
 
@@ -39,11 +39,11 @@ class UserWindow(QMainWindow):
 
 
         try:
-            _thread.start_new_thread(self.getdata,())
+            self.getdata()
         except:
             print("启动线程1失败")
         try:
-            _thread.start_new_thread(self.getchartdetail,())
+            self.getchartdetail()
         except:
             print("启动线程2失败")
 
@@ -127,19 +127,90 @@ class UserWindow(QMainWindow):
         # 执行SQL语句
         num = cursor.execute(sql)
         data = cursor.fetchall()
+
+        sql2 = """
+            SELECT jobPlace, COUNT(*) AS placeNum FROM jobOfferDetail GROUP BY jobPlace;
+        """
+        num2 = cursor.execute(sql2)
+        data2 = cursor.fetchall()
+
         # 关闭光标对象
         cursor.close()
         # 关闭数据库连接
         conn.close()
 
+        print('num', num)
+        self.color = ["#ffc656", "#2fc7e8", "#3ed7b7", "#0099CC", "#99CC66", "#CCCCCC", "#FF6666"]
         self.pieseries1 = QPieSeries()  # 定义PieSeries
+        self.pieseries1.hovered.connect(self.do_pieHover)
         for x in data:
             self.pieseries1.append(x[0], x[1])  # 插入第一个元素
+            print(x[0], x[1])
+
+        self.slice = QPieSlice()
+        print(1)
+        for i in range(0, num):
+            self.slice = self.pieseries1.slices()[i]
+            self.slice.setLabelVisible(False)
+            # slice.setPen(QPen(Qt.white, 10))
+            self.slice.setBrush(QtGui.QColor(self.color[i]))
+
+        self.pieseries2 = QPieSeries()  # 定义PieSeries
+        self.pieseries2.hovered.connect(self.do_pieHover)
+        for x in data2:
+            self.pieseries2.append(x[0], x[1])  # 插入第一个元素
+            print(x[0], x[1])
+
+        self.slice2 = QPieSlice()
+        print(1)
+        for i in range(0, num2):
+            self.slice2 = self.pieseries2.slices()[i]
+            self.slice2.setLabelVisible(False)
+            # slice.setPen(QPen(Qt.white, 10))
+            self.slice2.setBrush(QtGui.QColor(self.color[i]))
+
+        print(2)
         self.chart1 = QChart()  # 定义QChart
+        self.chart2 = QChart()
+        print(3)
+        self.chart1.legend().hide()
+        self.chart2.legend().hide()
+        print(4)
+        self.chart1.createDefaultAxes()
+        self.chart2.createDefaultAxes()
+        print(5)
         self.chart1.addSeries(self.pieseries1)  # 将 pieseries添加到chart里
-        self.chart1.setTitle("education")  # 设置char的标题
-        self.ui.chartview.setRenderHint(QPainter.Antialiasing)  # 设置抗锯齿
-        self.ui.chartview.setChart(self.chart1)
+        self.chart2.addSeries(self.pieseries2)
+        print(6)
+        self.chart1.setTitle("教育分布")  # 设置char的标题
+        self.chart2.setTitle("地区分布")  # 设置char的标题
+        print(7)
+        self.chart1.legend().setVisible(True)
+        self.chart2.legend().setVisible(True)
+        print(8)
+        self.chart1.legend().setAlignment(Qt.AlignBottom)# 对齐方式
+        self.chart2.legend().setAlignment(Qt.AlignBottom)  # 对齐方式
+        print(9)
+        self.chartview = self.ui.chartview
+        self.chartview_2 = self.ui.chartview_2
+        self.chart1.setAnimationOptions(QChart.SeriesAnimations)
+        self.chart2.setAnimationOptions(QChart.SeriesAnimations)
+        self.chartview.setRenderHint(QPainter.Antialiasing)  # 设置抗锯齿
+        self.chartview_2.setRenderHint(QPainter.Antialiasing)  # 设置抗锯齿
+        print(10)
+        self.chartview.setChart(self.chart1)
+        self.chartview.show()
+        self.chartview_2.setChart(self.chart2)
+        self.chartview_2.show()
+        print(11)
+
+    def do_pieHover(self, sli, states):
+        if states:
+            sli.setExploded(True)
+            sli.setLabelVisible(True)
+        else:
+            sli.setExploded(False)
+            sli.setLabelVisible(False)
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton and self.isMaximized() == False:
