@@ -81,10 +81,24 @@ while True:
 
     例如
 
-    ```
+    ```python
     jdata = [{'request':'getJobDetailSQL', 'sql':'你的sql'}]
     client.send(json.dumps(jdata).encode())
     jres = json.loads(m_recv(client))
+    # jres[0]:{'request_return':'getJobDetail', 'num':一个数字}
+# 之后跟num个数据
+    ```
+    
+ 5. 直接执行SQL：getAccDetailSQL
+
+    例如
+
+    ```python
+    jdata = [{'request':'getAccDetailSQL', 'sql':'你的sql'}]
+    client.send(json.dumps(jdata).encode())
+    jres = json.loads(m_recv(client))
+    # jres[0]:{'request_return':'getJobDetail', 'num':一个数字}
+    # 之后跟num个数据
     ```
 
     

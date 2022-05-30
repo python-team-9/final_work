@@ -31,11 +31,11 @@ def login(client, id,password,identity):
     # '密码错误'
     # '登录成功'
     j_res = json.loads(m_recv(client))
-    res = j_res[0]
+    res = j_res
     # res = client.recv(1024).decode()
     print(res)
-    if res['request_return'] == 'login':
-        return res['login_state']
+    if res[0]['request_return'] == 'login':
+        return res
     else:
         print('服务器返回数据出错！')
         return 'error'

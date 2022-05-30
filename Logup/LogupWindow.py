@@ -79,12 +79,14 @@ class LoadingWindow(QMainWindow):
             self.massage = '用户名为空！'
             self.show_error()
 
+        print('login_db')
         a = login_db.login(self.client, self.userid, self.password, self.identity)
-        if ( a == '登录成功' or a == '您已登录' ) :
+        if ( a[0]['login_state'] == '登录成功' or a[0]['login_state'] == '您已登录' ) :
             print('登录成功！', self.identity)
+            self.name = a[1]['name']
             self.switch.emit()
 
-        elif a == '用户未注册或账号错误':
+        elif a[0]['login_state'] == '用户未注册或账号错误':
             self.massage = '用户未注册或账号错误！'
             print('用户未注册或账号错误！')
             self.show_error()

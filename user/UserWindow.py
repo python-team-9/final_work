@@ -27,7 +27,6 @@ class UserWindow(QMainWindow):
         self.client = client
 
 
-
         # self.table_view.setColumnWidth(0, 100)
         # self.table_view.setColumnWidth(1, 130)
         # self.table_view.setColumnWidth(2, 150)
