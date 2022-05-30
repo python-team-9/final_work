@@ -165,4 +165,3 @@ class Ui_MainWindow(object):
         self.label_6.setText(_translate("MainWindow", "2020211754"))
         self.label_7.setText(_translate("MainWindow", "已投递"))
         self.pushButton_3.setText(_translate("MainWindow", "投递"))
-

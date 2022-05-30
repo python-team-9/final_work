@@ -17,10 +17,12 @@ class mainWindows:
     def switchWindows(self):
         self.client = self.logupW.client
         self.id = self.logupW.userid
+        self.password = self.logupW.password
+        self.username = self.logupW.username
         self.identity = self.logupW.identity
         self.logupW.close()
         if self.identity == 'users':
-            self.userW = user.UserWindow(self.client)
+            self.userW = user.UserWindow(self.client, self.id, self.password, self.username, self.identity)
             self.userW.show()
         elif self.identity == 'bosses':
             print("登录boss")

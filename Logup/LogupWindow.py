@@ -80,10 +80,12 @@ class LoadingWindow(QMainWindow):
             self.show_error()
 
         a = login_db.login(self.client, self.userid, self.password, self.identity)
-        if ( a == '登录成功' or a == '您已登录' ) :
+        if ( a[0] == '登录成功') :
             print('登录成功！', self.identity)
             self.switch.emit()
-
+            self.userid = a[1][0]
+            self.password = a[1][1]
+            self.username = a[1][2]
         elif a == '用户未注册或账号错误':
             self.massage = '用户未注册或账号错误！'
             print('用户未注册或账号错误！')
@@ -122,10 +124,10 @@ class LoadingWindow(QMainWindow):
             else:
                 self.identity = 'bosses'
 
-            self.name = self.ui.lineEdit_6.text()
-            print("昵称", self.name)
+            self.username = self.ui.lineEdit_6.text()
+            print("昵称", self.username)
 
-            a = login_db.register(self.client, self.userid, self.password, self.name, self.identity)
+            a = login_db.register(self.client, self.userid, self.password, self.username, self.identity)
             # if a > 0:
             #     self.massage = '该用户已存在！'
             #     print('该用户已存在！')
