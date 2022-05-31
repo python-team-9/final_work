@@ -34,7 +34,7 @@ border-radius:30px;</string>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>1320</x>
+      <x>1420</x>
       <y>10</y>
       <width>16</width>
       <height>16</height>
@@ -59,7 +59,7 @@ QPushButton:hover{
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>1350</x>
+      <x>1450</x>
       <y>10</y>
       <width>16</width>
       <height>16</height>
@@ -150,8 +150,8 @@ QPushButton:hover{
      <rect>
       <x>80</x>
       <y>50</y>
-      <width>68</width>
-      <height>15</height>
+      <width>191</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="font">
@@ -168,7 +168,7 @@ QPushButton:hover{
      <rect>
       <x>80</x>
       <y>80</y>
-      <width>151</width>
+      <width>221</width>
       <height>16</height>
      </rect>
     </property>
@@ -186,7 +186,7 @@ QPushButton:hover{
      <rect>
       <x>10</x>
       <y>160</y>
-      <width>501</width>
+      <width>651</width>
       <height>321</height>
      </rect>
     </property>
@@ -283,9 +283,9 @@ QPushButton:pressed{
    <widget class="QListView" name="listView">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>680</x>
       <y>160</y>
-      <width>451</width>
+      <width>301</width>
       <height>321</height>
      </rect>
     </property>

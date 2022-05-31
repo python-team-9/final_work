@@ -6,6 +6,22 @@ from TCPmodule import m_recv
 
 
 def register(client, id, password, name, identity):
+    jdata = [{'request': 'register', 'id': id, 'passwd': password, 'identity': identity, 'name': name}]
+    client.send(json.dumps(jdata).encode())
+    # 服务器返回登录状态信息
+    # '用户未注册或账号错误'
+    # '密码错误'
+    # '登录成功'
+    j_res = json.loads(m_recv(client))
+    print(j_res)
+    # # res = client.recv(1024).decode()
+    # print(res)
+    if j_res[0]['request_return'] == 'register':
+        return j_res[0]['register_state']
+    else:
+        print('服务器返回数据出错！')
+        return 'error'
+
     # identity_db = 'identity.db'
     # conn = sqlite3.connect(identity_db)
     #
@@ -20,13 +36,27 @@ def register(client, id, password, name, identity):
     # # 关闭
     # cur.close()
     # conn.close()
-    sql1 = "SELECT * FROM account.{} where id=\'{}\';".format(identity, id)
-    print(sql1)
-    jdata = [{'request': 'getJobDetailSQL', 'sql': sql1}]
-    client.send(json.dumps(jdata).encode())
-    jres = json.loads(m_recv(client))
-    res = jres[0]
-    print(res)
+
+
+    # sql = "select * from {} where id=\'{}\';".format(identity, id)
+    # jdata = [{'request': 'getAccDetailSQL', 'sql': sql}]
+    # client.send(json.dumps(jdata).encode())
+    # jres = json.loads(m_recv(client))
+    # print("jres[0]['num']", jres[0]['num'])
+    # num = jres[0]['num']
+    # if num > 0:
+    #     print("该账号已存在")
+    #     return '该账号已存在'
+    # else:
+    #     sql2 = "INSERT INTO {} VALUES(\'{}\',\'{}\',\'{}\');".format(identity, id, password, name)
+    #     print("注册",sql2)
+    #     jdata = [{'request': 'getAccDetailSQL', 'sql': sql2}]
+    #     client.send(json.dumps(jdata).encode())
+    #     jres = json.loads(m_recv(client))
+    #     print("jres[0]['num']", jres[0]['num'])
+    #     num = jres[0]['num']
+    #     return '注册成功！'
+
     # sql2 = "insert into account.users values (\'{}\',\'{}\',\'{}\')".format(id, password, name)
     # print(sql)
     # jdata = [{'request': 'getJobDetailSQL', 'sql': sql2}]
@@ -44,38 +74,45 @@ def register(client, id, password, name, identity):
 
 def login(client, id, password, identity):
 
-    # jdata = [{'request': 'login', 'id': id, 'passwd': password, 'identity': identity}]
-    # client.send(json.dumps(jdata).encode())
-    # # 服务器返回登录状态信息
-    # # '用户未注册或账号错误'
-    # # '密码错误'
-    # # '登录成功'
-    # j_res = json.loads(m_recv(client))
-    # res = j_res[0]
-    # # res = client.recv(1024).decode()
-    # print(res)
-    # if res['request_return'] == 'login':
-    #     return res['login_state']
-    # else:
-    #     print('服务器返回数据出错！')
-    #     return 'error'
-    sql = "select * from {} where id=\'{}\' and password=\'{}\';".format(identity, id, password)
-    jdata = [{'request': 'getAccDetailSQL', 'sql': sql}]
+    jdata = [{'request': 'login', 'id': id, 'passwd': password, 'identity': identity}]
     client.send(json.dumps(jdata).encode())
-    jres = json.loads(m_recv(client))
-    print("jres[0]['num']", jres[0]['num'])
-    num = jres[0]['num']
-    if num > 0:
-        data = []
-        data.append(jres[1]['id'])
-        data.append(jres[1]['password'])
-        data.append(jres[1]['name'])
-        print("data", data)
-        datas = ['登录成功',data]
-        return datas
+    # 服务器返回登录状态信息
+    # '用户未注册或账号错误'
+    # '密码错误'
+    # '登录成功'
+    j_res = json.loads(m_recv(client))
+    info = []
+    info.append(j_res[1]['id'])
+    info.append(j_res[1]['password'])
+    info.append(j_res[1]['name'])
+    res = [j_res[0]['login_state'], info]
+    # res = client.recv(1024).decode()
+    print(res)
+    if j_res[0]['request_return'] == 'login':
+        return res
     else:
-        datas = ['用户未注册或账号错误']
-        return datas
+        print('服务器返回数据出错！')
+        return 'error'
+
+    # sql = "select * from {} where id=\'{}\' and password=\'{}\';".format(identity, id, password)
+    # jdata = [{'request': 'getAccDetailSQL', 'sql': sql}]
+    # client.send(json.dumps(jdata).encode())
+    # jres = json.loads(m_recv(client))
+    # print("jres[0]['num']", jres[0]['num'])
+    # num = jres[0]['num']
+    # if num > 0:
+    #     data = []
+    #     data.append(jres[1]['id'])
+    #     data.append(jres[1]['password'])
+    #     data.append(jres[1]['name'])
+    #     print("data", data)
+    #     datas = ['登录成功',data]
+    #     return datas
+    # else:
+    #     datas = ['用户未注册或账号错误']
+    #     return datas
+
+
     # identity_db = 'identity.db'
     # conn = sqlite3.connect(identity_db)
     #

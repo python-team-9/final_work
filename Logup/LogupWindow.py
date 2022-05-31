@@ -80,20 +80,18 @@ class LoadingWindow(QMainWindow):
             self.show_error()
 
         a = login_db.login(self.client, self.userid, self.password, self.identity)
-        if ( a[0] == '登录成功') :
-            print('登录成功！', self.identity)
-            self.switch.emit()
-            self.userid = a[1][0]
-            self.password = a[1][1]
-            self.username = a[1][2]
-        elif a == '用户未注册或账号错误':
+
+        if a[0] == '用户未注册或账号错误':
             self.massage = '用户未注册或账号错误！'
             print('用户未注册或账号错误！')
             self.show_error()
         else:
-            self.massage = '密码错误！'
-            print('密码错误！')
-            self.show_error()
+            self.userid = a[1][0]
+            self.password = a[1][1]
+            self.username = a[1][2]
+            print('登录成功！', self.identity)
+            self.switch.emit()
+
         # if a > 0:
         #     print('登录成功！')
         # else:
@@ -128,13 +126,12 @@ class LoadingWindow(QMainWindow):
             print("昵称", self.username)
 
             a = login_db.register(self.client, self.userid, self.password, self.username, self.identity)
-            # if a > 0:
-            #     self.massage = '该用户已存在！'
-            #     print('该用户已存在！')
-            #     self.show_error()
-            # else:
-            #     register(self.client, self.userid, self.password, self.ismanager)
-            #     print('注册成功！')
+            if a == '注册成功':
+                self.massage = '注册成功！'
+                self.show_error()
+            else:
+                self.massage = 'ERROR注册失败！'
+                self.show_error()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

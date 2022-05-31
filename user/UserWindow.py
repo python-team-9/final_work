@@ -15,7 +15,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QCursor, QFont, QPain
 
 # self.client, self.id, self.password, self.username, self.identity
 class UserWindow(QMainWindow):
-    def __init__(self, client, id, password, username, identity):
+    def __init__(self, client, userid, password, username, identity):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -24,12 +24,13 @@ class UserWindow(QMainWindow):
         self.slm.setStringList(self.messagelist)
         self.ui.listView.setModel(self.slm)
         self.ui.pushButton_3.clicked.connect(self.sendresume)
-        self.userid = id
+        self.userid = userid
         self.password = password
         self.username = username
         self.identity = identity
         self.ui.label_5.setText(self.username)
         self.ui.label_6.setText(self.userid)
+        print("启动user窗口")
 
         # 隐藏窗口
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -51,11 +52,11 @@ class UserWindow(QMainWindow):
         try:
             self.getdata()
         except:
-            print("启动线程1失败")
+            print("启动线程1失败", sys.exc_info()[0])
         try:
             self.getchartdetail()
         except:
-            print("启动线程2失败")
+            print("启动线程2失败", sys.exc_info()[0])
 
 
     def getdata(self):
@@ -95,7 +96,9 @@ class UserWindow(QMainWindow):
             self.all_job_datas[1].append(job)
         print(self.all_job_datas)
 
-        sql2 = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail WHERE jobOfferid IN (SELECT jobOfferid FROM resume WHERE userid =\'{}\');".format(self.userid)
+        print('self.userid', self.userid)
+        sql2 = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail WHERE jobOfferid IN (SELECT jobOfferid FROM resume WHERE id =\'{}\');".format(self.userid)
+        print('sql2',sql2)
         jdata = [{'request': 'getJobDetailSQL', 'sql': sql2}]
         self.client.send(json.dumps(jdata).encode())
         jres = json.loads(m_recv(self.client))
@@ -309,15 +312,17 @@ class UserWindow(QMainWindow):
         # # 执行SQL语句
         # num = cursor.execute(sql1)
         # print("已存在", num)
-        sql = "SELECT * FROM resume WHERE userid=\'{}\' AND jobOfferid={};".format(self.userid, self.jobOfferid)
+        sql = "SELECT * FROM resume WHERE id=\'{}\' AND jobOfferid={};".format(self.userid, self.jobOfferid)
+        print('sql', sql)
         jdata = [{'request': 'getJobDetailSQL', 'sql': sql}]
         self.client.send(json.dumps(jdata).encode())
         jres = json.loads(m_recv(self.client))
         print("jres[0]['num']", jres[0]['num'])
         num = jres[0]['num']
         if num == 0:
-            sql2 = "INSERT INTO resume VALUES (\'{}\',{});".format(self.userid, self.jobOfferid)
-            jdata = [{'request': 'getJobDetailSQL', 'sql': sql}]
+            sql2 = "INSERT INTO resume VALUES ({},{});".format(self.userid, self.jobOfferid)
+            print("sql2",sql2)
+            jdata = [{'request': 'getJobDetailSQL', 'sql': sql2}]
             self.client.send(json.dumps(jdata).encode())
             jres = json.loads(m_recv(self.client))
             print("插入返回结果", jres[0]['num'])

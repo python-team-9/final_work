@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
         self.label.setText("")
         self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(1320, 10, 16, 16))
+        self.pushButton.setGeometry(QtCore.QRect(1420, 10, 16, 16))
         self.pushButton.setStyleSheet("QPushButton{\n"
 "    border-radius:8px;\n"
 "    background-color: #336666;\n"
@@ -39,7 +39,7 @@ class Ui_MainWindow(object):
         self.pushButton.setText("")
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(1350, 10, 16, 16))
+        self.pushButton_2.setGeometry(QtCore.QRect(1450, 10, 16, 16))
         self.pushButton_2.setStyleSheet("QPushButton{\n"
 "    border-radius:8px;\n"
 "    background-color: #336666;\n"
@@ -74,19 +74,19 @@ class Ui_MainWindow(object):
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(80, 50, 68, 15))
+        self.label_5.setGeometry(QtCore.QRect(80, 50, 191, 16))
         font = QtGui.QFont()
         font.setFamily("幼圆")
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
-        self.label_6.setGeometry(QtCore.QRect(80, 80, 151, 16))
+        self.label_6.setGeometry(QtCore.QRect(80, 80, 221, 16))
         font = QtGui.QFont()
         font.setFamily("幼圆")
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.tableView_2 = QtWidgets.QTableView(self.centralwidget)
-        self.tableView_2.setGeometry(QtCore.QRect(10, 160, 501, 321))
+        self.tableView_2.setGeometry(QtCore.QRect(10, 160, 651, 321))
         self.tableView_2.setObjectName("tableView_2")
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
         self.label_7.setGeometry(QtCore.QRect(20, 130, 68, 15))
@@ -127,7 +127,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_3.setObjectName("pushButton_3")
         self.listView = QtWidgets.QListView(self.centralwidget)
-        self.listView.setGeometry(QtCore.QRect(530, 160, 451, 321))
+        self.listView.setGeometry(QtCore.QRect(680, 160, 301, 321))
         self.listView.setObjectName("listView")
         self.label.raise_()
         self.tableView.raise_()
@@ -165,3 +165,4 @@ class Ui_MainWindow(object):
         self.label_6.setText(_translate("MainWindow", "2020211754"))
         self.label_7.setText(_translate("MainWindow", "已投递"))
         self.pushButton_3.setText(_translate("MainWindow", "投递"))
+
