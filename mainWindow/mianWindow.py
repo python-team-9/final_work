@@ -4,7 +4,7 @@ sys.path.append('../user/')
 
 import LogupWindow as logup
 import UserWindow as user
-
+import BOOS as boss
 
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
@@ -24,8 +24,10 @@ class mainWindows:
         if self.identity == 'users':
             self.userW = user.UserWindow(self.client, self.id, self.password, self.username, self.identity)
             self.userW.show()
+
         elif self.identity == 'bosses':
             print("登录boss")
+
         else:
             print("登录managers")
 

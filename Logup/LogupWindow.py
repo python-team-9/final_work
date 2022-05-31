@@ -79,6 +79,7 @@ class LoadingWindow(QMainWindow):
             self.massage = '用户名为空！'
             self.show_error()
 
+        print('login_db')
         a = login_db.login(self.client, self.userid, self.password, self.identity)
 
         if a[0] == '用户未注册或账号错误':
