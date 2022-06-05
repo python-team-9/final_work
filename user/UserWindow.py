@@ -1,4 +1,5 @@
 from PyQt5.QtChart import QPieSeries, QChart, QPieSlice
+import addjianli as jianli
 
 from TCPmodule import m_recv
 from userUI import *
@@ -13,6 +14,7 @@ from PyQt5.QtWidgets import QWidget, QTableView, QAbstractItemView, QToolTip, qA
 from PyQt5.QtCore import Qt, QStringListModel
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QCursor, QFont, QPainter
 
+
 # self.client, self.id, self.password, self.username, self.identity
 class UserWindow(QMainWindow):
     def __init__(self, client, userid, password, username, identity):
@@ -24,6 +26,7 @@ class UserWindow(QMainWindow):
         self.slm.setStringList(self.messagelist)
         self.ui.listView.setModel(self.slm)
         self.ui.pushButton_3.clicked.connect(self.sendresume)
+        self.ui.pushButton_4.clicked.connect(self.addjianli)
         self.userid = userid
         self.password = password
         self.username = username
@@ -38,7 +41,6 @@ class UserWindow(QMainWindow):
         self.show()
         self.client = client
 
-
         # self.table_view.setColumnWidth(0, 100)
         # self.table_view.setColumnWidth(1, 130)
         # self.table_view.setColumnWidth(2, 150)
@@ -46,7 +48,6 @@ class UserWindow(QMainWindow):
         # self.table_view.setColumnWidth(4, 160)
         # self.table_view.setColumnWidth(5, 165)
         # 调节列宽度
-
 
         try:
             self.getdata()
@@ -56,7 +57,6 @@ class UserWindow(QMainWindow):
             self.getchartdetail()
         except:
             print("启动线程2失败", sys.exc_info()[0])
-
 
     def getdata(self):
         # 直接访问数据库
@@ -77,7 +77,7 @@ class UserWindow(QMainWindow):
         # conn.close()
         print("开始查询getdata")
         sql = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"
-        jdata = [{'request':'getJobDetailSQL', 'sql': sql}]
+        jdata = [{'request': 'getJobDetailSQL', 'sql': sql}]
         self.client.send(json.dumps(jdata).encode())
         jres = json.loads(m_recv(self.client))
         print("jres是", jres)
@@ -87,17 +87,18 @@ class UserWindow(QMainWindow):
         self.all_job_datas.append([])
         for i in range(0, jres[0]['num']):
             job = []
-            job.append(jres[i+1]['jobName'])
-            job.append(jres[i+1]['jobCompany'])
-            job.append(jres[i+1]['jobSalary'])
-            job.append(jres[i+1]['jobPlace'])
-            job.append(jres[i+1]['jobOfferid'])
+            job.append(jres[i + 1]['jobName'])
+            job.append(jres[i + 1]['jobCompany'])
+            job.append(jres[i + 1]['jobSalary'])
+            job.append(jres[i + 1]['jobPlace'])
+            job.append(jres[i + 1]['jobOfferid'])
             self.all_job_datas[1].append(job)
         print(self.all_job_datas)
 
         print('self.userid', self.userid)
-        sql2 = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail WHERE jobOfferid IN (SELECT jobOfferid FROM resume WHERE id =\'{}\');".format(self.userid)
-        print('sql2',sql2)
+        sql2 = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail WHERE jobOfferid IN (SELECT jobOfferid FROM resume WHERE id =\'{}\');".format(
+            self.userid)
+        print('sql2', sql2)
         jdata = [{'request': 'getJobDetailSQL', 'sql': sql2}]
         self.client.send(json.dumps(jdata).encode())
         jres = json.loads(m_recv(self.client))
@@ -156,7 +157,7 @@ class UserWindow(QMainWindow):
         contents = self.table_view.currentIndex().data()
         self.row = self.table_view.currentIndex().row()  # 获取所在行数
         print("选中行数为", self.row)
-        print("all_job_datas",self.all_job_datas)
+        print("all_job_datas", self.all_job_datas)
         self.jobOfferid = self.all_job_datas[1][self.row][4]
         print("选中工作id为", self.jobOfferid)
         QToolTip.showText(QCursor.pos(), contents)
@@ -208,7 +209,7 @@ class UserWindow(QMainWindow):
             index.append(jres[i + 1]['jobEducation'])
             index.append(jres[i + 1]['eduNum'])
             data.append(index)
-        print("data",data)
+        print("data", data)
 
         sql = "SELECT jobPlace, COUNT(*) AS placeNum FROM jobOfferDetail GROUP BY jobPlace;"
         jdata = [{'request': 'getJobDetailSQL', 'sql': sql}]
@@ -223,8 +224,7 @@ class UserWindow(QMainWindow):
             index.append(jres[i + 1]['jobPlace'])
             index.append(jres[i + 1]['placeNum'])
             data2.append(index)
-        print("data2",data2)
-
+        print("data2", data2)
 
         self.color = ["#ffc656", "#2fc7e8", "#3ed7b7", "#0099CC", "#99CC66", "#CCCCCC", "#FF6666"]
 
@@ -289,7 +289,6 @@ class UserWindow(QMainWindow):
         self.chartview_2.setChart(self.chart2)
         self.chartview_2.show()
 
-
     def do_pieHover(self, sli, states):
         if states:
             sli.setExploded(True)
@@ -320,7 +319,7 @@ class UserWindow(QMainWindow):
         num = jres[0]['num']
         if num == 0:
             sql2 = "INSERT INTO resume VALUES ({},{});".format(self.userid, self.jobOfferid)
-            print("sql2",sql2)
+            print("sql2", sql2)
             jdata = [{'request': 'getJobDetailSQL', 'sql': sql2}]
             self.client.send(json.dumps(jdata).encode())
             jres = json.loads(m_recv(self.client))
@@ -328,7 +327,7 @@ class UserWindow(QMainWindow):
             message = "投递简历至{}成功！".format(self.all_job_datas[1][self.row][0])
             self.messagelist.append(message)
             self.slm.setStringList(self.messagelist)
-        
+
         try:
             _thread.start_new_thread(self.getdata, ())
             message = "刷新成功！"
@@ -337,6 +336,15 @@ class UserWindow(QMainWindow):
         except:
             print("刷新失败")
 
+    def addjianli(self):
+        self.jianliWindow = jianli.addjianli(self.client, self.userid, self.identity)
+        self.jianliWindow.show()
+        self.jianliWindow.addsuccess.connect(self.addmessage)  # 简历上传成功后显示信息
+
+    def addmessage(self, message):
+        self.jianliWindow.close()
+        self.messagelist.append(message)
+        self.slm.setStringList(self.messagelist)
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton and self.isMaximized() == False:
@@ -353,7 +361,6 @@ class UserWindow(QMainWindow):
     def mouseReleaseEvent(self, mouse_event):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-
 
 
 if __name__ == '__main__':
