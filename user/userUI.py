@@ -105,7 +105,7 @@ class Ui_MainWindow(object):
         self.chartview.setGeometry(QtCore.QRect(0, 500, 411, 411))
         self.chartview.setObjectName("chartview")
         self.chartview_2 = QChartView(self.centralwidget)
-        self.chartview_2.setGeometry(QtCore.QRect(410, 500, 591, 411))
+        self.chartview_2.setGeometry(QtCore.QRect(410, 500, 581, 411))
         self.chartview_2.setObjectName("chartview_2")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setGeometry(QtCore.QRect(860, 110, 111, 41))
@@ -129,6 +129,25 @@ class Ui_MainWindow(object):
         self.listView = QtWidgets.QListView(self.centralwidget)
         self.listView.setGeometry(QtCore.QRect(680, 160, 301, 321))
         self.listView.setObjectName("listView")
+        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_4.setGeometry(QtCore.QRect(730, 110, 111, 41))
+        font = QtGui.QFont()
+        font.setFamily("幼圆")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_4.setFont(font)
+        self.pushButton_4.setStyleSheet("QPushButton{\n"
+"    border:none;\n"
+"    border-radius:15px;\n"
+"    color:#fff;\n"
+"    background:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 #99CCCC, stop:1 #336699)\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    padding-top:15px;\n"
+"    padding-left:15px;\n"
+"}")
+        self.pushButton_4.setObjectName("pushButton_4")
         self.label.raise_()
         self.tableView.raise_()
         self.label_2.raise_()
@@ -145,6 +164,7 @@ class Ui_MainWindow(object):
         self.chartview_2.raise_()
         self.pushButton_3.raise_()
         self.listView.raise_()
+        self.pushButton_4.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -165,4 +185,5 @@ class Ui_MainWindow(object):
         self.label_6.setText(_translate("MainWindow", "2020211754"))
         self.label_7.setText(_translate("MainWindow", "已投递"))
         self.pushButton_3.setText(_translate("MainWindow", "投递"))
+        self.pushButton_4.setText(_translate("MainWindow", "个人简历"))
 
