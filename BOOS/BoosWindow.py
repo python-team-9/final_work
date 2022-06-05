@@ -100,8 +100,8 @@ class BoosWindow(QMainWindow):
         print(num)
         print(data)
         """防止最后数据数为0报错，数据数为0显示空表"""
-        # if(num == 0):
-        #    data = (('','','','','',''))
+        if(num == 0):
+            data = [{'id':'', 'name':'', 'jobName':'', 'jobOfferid': ''}]
         datas = [num, data]
         self.all_job_datas = datas
         # 请求服务器访问数据库
@@ -112,13 +112,13 @@ class BoosWindow(QMainWindow):
         # self.all_job_datas = j_res[1:-1]
         # print(self.all_job_datas)
 
-        self.column_name = ['账号', '名称', '应聘职位', '职位']
+        self.column_name = ['账号', '名称', '应聘职位', '职位编号']
         self.model = QStandardItemModel(self.all_job_datas[0], len(self.all_job_datas[1][0]))
         self.model.setHorizontalHeaderLabels(self.column_name)
         self.table_view = self.ui.tableView
         self.table_view.setSelectionMode(QAbstractItemView.SingleSelection)  # 选中一个单元格
         self.table_view.setSelectionBehavior(QAbstractItemView.SelectItems)  # 单元格选中模式
-        self.table_view.doubleClicked.connecidt(self.get_table_item)
+        self.table_view.doubleClicked.connect(self.get_table_item)
         self.table_view.clicked.connect(self.get_cell_tip)
         self.table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 使表宽度自适应
 
