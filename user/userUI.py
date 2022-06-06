@@ -148,6 +148,27 @@ class Ui_MainWindow(object):
 "    padding-left:15px;\n"
 "}")
         self.pushButton_4.setObjectName("pushButton_4")
+        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_5.setGeometry(QtCore.QRect(240, 40, 111, 41))
+        font = QtGui.QFont()
+        font.setFamily("幼圆")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_5.setFont(font)
+        self.pushButton_5.setStyleSheet("QPushButton{\n"
+"    border-top: 5px solid qlineargradient(y0:0, y1:1,stop: 0 #ececef, stop: 1 white);\n"
+"border-left: 5px solid qlineargradient(x0:0, x1:1,stop: 0 #ececef, stop: 1 white);\n"
+" border-bottom: 5px solid qlineargradient(y0:0, y1:1,stop: 0 white, stop: 1  #ececef);\n"
+"border-right: 5px solid qlineargradient(x0:0, x1:1,stop:  0 white, stop: 1 #ececef);\n"
+"background-color: rgb(255,255,255);\n"
+"    color:#aaa\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    padding-top:15px;\n"
+"    padding-left:15px;\n"
+"}")
+        self.pushButton_5.setObjectName("pushButton_5")
         self.label.raise_()
         self.tableView.raise_()
         self.label_2.raise_()
@@ -165,6 +186,7 @@ class Ui_MainWindow(object):
         self.pushButton_3.raise_()
         self.listView.raise_()
         self.pushButton_4.raise_()
+        self.pushButton_5.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -186,4 +208,5 @@ class Ui_MainWindow(object):
         self.label_7.setText(_translate("MainWindow", "已投递"))
         self.pushButton_3.setText(_translate("MainWindow", "投递"))
         self.pushButton_4.setText(_translate("MainWindow", "个人简历"))
+        self.pushButton_5.setText(_translate("MainWindow", "注销账号"))
 
