@@ -20,7 +20,7 @@ import socket
 
 
 class AdministratorWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, client, userid, password, username, identity):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -29,6 +29,11 @@ class AdministratorWindow(QMainWindow):
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.show()
+
+        self.userid = userid
+        self.password = password
+        self.username = username
+        self.identity = identity
 
         self.client = socket.socket()
         host = '47.99.201.114'
@@ -45,6 +50,7 @@ class AdministratorWindow(QMainWindow):
         # self.table_view.setColumnWidth(5, 165)
         # 调节列宽度
 
+        self.ui.pushButton_8.clicked.connect(self.zhuxiao)
         self.ui.pushButton_7.clicked.connect(self.deleteJob)
         self.ui.pushButton_6.clicked.connect(self.search)
         self.ui.pushButton_5.clicked.connect(self.close_window_clicked)
@@ -220,6 +226,22 @@ class AdministratorWindow(QMainWindow):
         self.table_view.setModel(self.model)
         print('线程结束')
         return
+
+    def zhuxiao(self):
+        res = QMessageBox.question(self, "确认注销账号", "账号注销数据无法恢复！", QMessageBox.Yes|QMessageBox.Cancel)
+        if res==QMessageBox.Yes:
+            sql = "DELETE FROM {} WHERE id=\'{}\';".format(self.identity, self.userid)
+            print("删除账号", sql)
+            jdata = [{'request': 'getAccDetailSQL', 'sql': sql}]
+            self.client.send(json.dumps(jdata).encode())
+            jres = json.loads(m_recv(self.client))
+            if jres[0]['num'] == 1:
+                QMessageBox.about(self, '注销账号', '成功！')
+                self.close()
+            else:
+                QMessageBox.critical(self, '注销账号失败', '可能存在网络问题')
+        else:
+            return
 
 
 

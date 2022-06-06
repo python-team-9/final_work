@@ -114,6 +114,27 @@ class Ui_MainWindow(object):
 "\n"
 "")
         self.pushButton_6.setObjectName("pushButton_6")
+        self.pushButton_7 = QtWidgets.QPushButton(self.widget)
+        self.pushButton_7.setGeometry(QtCore.QRect(30, 710, 111, 41))
+        font = QtGui.QFont()
+        font.setFamily("幼圆")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_7.setFont(font)
+        self.pushButton_7.setStyleSheet("QPushButton{\n"
+"    border-top: 5px solid qlineargradient(y0:0, y1:1,stop: 0 #ececef, stop: 1 white);\n"
+"border-left: 5px solid qlineargradient(x0:0, x1:1,stop: 0 #ececef, stop: 1 white);\n"
+" border-bottom: 5px solid qlineargradient(y0:0, y1:1,stop: 0 white, stop: 1  #ececef);\n"
+"border-right: 5px solid qlineargradient(x0:0, x1:1,stop:  0 white, stop: 1 #ececef);\n"
+"background-color: rgb(255,255,255);\n"
+"    color:#aaa\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    padding-top:15px;\n"
+"    padding-left:15px;\n"
+"}")
+        self.pushButton_7.setObjectName("pushButton_7")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
         self.label_8.setGeometry(QtCore.QRect(0, 0, 1101, 31))
         self.label_8.setStyleSheet("background:rgb(218,218,218);\n"
@@ -222,6 +243,7 @@ class Ui_MainWindow(object):
         self.lineEdit_2.setPlaceholderText(_translate("MainWindow", "请输入一个范围如4000-5000"))
         self.lineEdit_6.setPlaceholderText(_translate("MainWindow", "请输入几年"))
         self.pushButton_6.setText(_translate("MainWindow", "发布"))
+        self.pushButton_7.setText(_translate("MainWindow", "注销账号"))
         self.pushButton_5.setText(_translate("MainWindow", "发布招聘"))
         self.label_3.setText(_translate("MainWindow", "欢迎"))
         self.label_4.setText(_translate("MainWindow", "南宁市瑞薪电子科技有限公司"))

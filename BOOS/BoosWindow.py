@@ -21,7 +21,7 @@ import socket
 
 
 class BoosWindow(QMainWindow):
-    def __init__(self, client, company):
+    def __init__(self, client,userid, company,identity):
         super().__init__()
         print('init boss')
         self.ui = Ui_MainWindow()
@@ -33,6 +33,8 @@ class BoosWindow(QMainWindow):
         self.show()
 
         self.client = client
+        self.identity = identity
+        self.userid = userid
         # host = '47.99.201.114'
         # port = 1010
         # self.client.connect((host, port))
@@ -51,6 +53,7 @@ class BoosWindow(QMainWindow):
         self.ui.pushButton.clicked.connect(self.min_window_clicked)
         self.ui.pushButton_2.clicked.connect(self.close_window_clicked)
         self.ui.pushButton_6.clicked.connect(self.releaseJobInformation)
+        self.ui.pushButton_7.clicked.connect(self.zhuxiao)
         """
         self.ui.pushButton_6.clicked.connect(self.search)
         self.ui.pushButton_4.clicked.connect(self.min_window_clicked)
@@ -225,6 +228,21 @@ class BoosWindow(QMainWindow):
             QMessageBox.about(self, "提示", "招聘发布成功")
 
         return
+    def zhuxiao(self):
+        res = QMessageBox.question(self, "确认注销账号", "账号注销数据无法恢复！", QMessageBox.Yes|QMessageBox.Cancel)
+        if res==QMessageBox.Yes:
+            sql = "DELETE FROM {} WHERE id=\'{}\';".format(self.identity, self.userid)
+            print("删除账号", sql)
+            jdata = [{'request': 'getAccDetailSQL', 'sql': sql}]
+            self.client.send(json.dumps(jdata).encode())
+            jres = json.loads(m_recv(self.client))
+            if jres[0]['num'] == 1:
+                QMessageBox.about(self, '注销账号', '成功！')
+                self.close()
+            else:
+                QMessageBox.critical(self, '注销账号失败', '可能存在网络问题')
+        else:
+            return
 
 
 client = socket.socket()
@@ -233,7 +251,7 @@ port = 1010
 client.connect((host, port))
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    win = BoosWindow(client, '南宁市广迪自动化科技有限公司')
+    win = BoosWindow(client,12321, '南宁市广迪自动化科技有限公司','bosses')
     sys.exit(app.exec_())
 
 

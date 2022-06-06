@@ -79,6 +79,9 @@ QPushButton:pressed{
 border-bottom:2px solid #000;
 </string>
     </property>
+    <property name="placeholderText">
+     <string>请输入职位名称</string>
+    </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -194,6 +197,9 @@ border-radius:30px;</string>
 border-bottom:2px solid #000;
 </string>
     </property>
+    <property name="placeholderText">
+     <string>请输入职位id</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="pushButton_7">
     <property name="geometry">
@@ -247,6 +253,41 @@ QPushButton:pressed{
      <string>招聘信息总数：</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_8">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>750</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>幼圆</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	border-top: 5px solid qlineargradient(y0:0, y1:1,stop: 0 #ececef, stop: 1 white);
+border-left: 5px solid qlineargradient(x0:0, x1:1,stop: 0 #ececef, stop: 1 white);
+ border-bottom: 5px solid qlineargradient(y0:0, y1:1,stop: 0 white, stop: 1  #ececef);
+border-right: 5px solid qlineargradient(x0:0, x1:1,stop:  0 white, stop: 1 #ececef);
+background-color: rgb(255,255,255);
+	color:#aaa
+}
+QPushButton:pressed{
+	padding-top:15px;
+	padding-left:15px;
+}</string>
+    </property>
+    <property name="text">
+     <string>注销账号</string>
+    </property>
+   </widget>
    <zorder>label_2</zorder>
    <zorder>label_8</zorder>
    <zorder>pushButton_6</zorder>
@@ -258,6 +299,7 @@ QPushButton:pressed{
    <zorder>lineEdit_5</zorder>
    <zorder>pushButton_7</zorder>
    <zorder>label_3</zorder>
+   <zorder>pushButton_8</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

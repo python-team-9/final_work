@@ -1,4 +1,4 @@
-from PyQt5.QtChart import QPieSeries, QChart, QPieSlice
+#from PyQt5.QtChart import QPieSeries, QChart, QPieSlice
 import addjianli as jianli
 
 from TCPmodule import m_recv

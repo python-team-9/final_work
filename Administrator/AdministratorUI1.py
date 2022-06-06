@@ -122,6 +122,27 @@ class Ui_MainWindow(object):
         self.label_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.label_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.label_3.setObjectName("label_3")
+        self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_8.setGeometry(QtCore.QRect(70, 750, 111, 41))
+        font = QtGui.QFont()
+        font.setFamily("幼圆")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_8.setFont(font)
+        self.pushButton_8.setStyleSheet("QPushButton{\n"
+"    border-top: 5px solid qlineargradient(y0:0, y1:1,stop: 0 #ececef, stop: 1 white);\n"
+"border-left: 5px solid qlineargradient(x0:0, x1:1,stop: 0 #ececef, stop: 1 white);\n"
+" border-bottom: 5px solid qlineargradient(y0:0, y1:1,stop: 0 white, stop: 1  #ececef);\n"
+"border-right: 5px solid qlineargradient(x0:0, x1:1,stop:  0 white, stop: 1 #ececef);\n"
+"background-color: rgb(255,255,255);\n"
+"    color:#aaa\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    padding-top:15px;\n"
+"    padding-left:15px;\n"
+"}")
+        self.pushButton_8.setObjectName("pushButton_8")
         self.label_2.raise_()
         self.label_8.raise_()
         self.pushButton_6.raise_()
@@ -133,6 +154,7 @@ class Ui_MainWindow(object):
         self.lineEdit_5.raise_()
         self.pushButton_7.raise_()
         self.label_3.raise_()
+        self.pushButton_8.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1221, 22))
@@ -149,7 +171,10 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton_6.setText(_translate("MainWindow", "查询"))
+        self.lineEdit_4.setPlaceholderText(_translate("MainWindow", "请输入职位名称"))
         self.label.setText(_translate("MainWindow", "TextLabel"))
+        self.lineEdit_5.setPlaceholderText(_translate("MainWindow", "请输入职位id"))
         self.pushButton_7.setText(_translate("MainWindow", "删除"))
         self.label_3.setText(_translate("MainWindow", "招聘信息总数："))
+        self.pushButton_8.setText(_translate("MainWindow", "注销账号"))
 
