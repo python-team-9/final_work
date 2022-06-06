@@ -27,6 +27,9 @@ class UserWindow(QMainWindow):
         self.ui.listView.setModel(self.slm)
         self.ui.pushButton_3.clicked.connect(self.sendresume)
         self.ui.pushButton_4.clicked.connect(self.addjianli)
+        self.ui.pushButton_5.clicked.connect(self.zhuxiao)
+
+
         self.userid = userid
         self.password = password
         self.username = username
@@ -361,6 +364,9 @@ class UserWindow(QMainWindow):
     def mouseReleaseEvent(self, mouse_event):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+
+    def zhuxiao(self):
+
 
 
 if __name__ == '__main__':

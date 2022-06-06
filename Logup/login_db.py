@@ -8,14 +8,8 @@ from TCPmodule import m_recv
 def register(client, id, password, name, identity):
     jdata = [{'request': 'register', 'id': id, 'passwd': password, 'identity': identity, 'name': name}]
     client.send(json.dumps(jdata).encode())
-    # 服务器返回登录状态信息
-    # '用户未注册或账号错误'
-    # '密码错误'
-    # '登录成功'
     j_res = json.loads(m_recv(client))
     print(j_res)
-    # # res = client.recv(1024).decode()
-    # print(res)
     if j_res[0]['request_return'] == 'register':
         return j_res[0]['register_state']
     else:

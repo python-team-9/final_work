@@ -323,6 +323,41 @@ QPushButton:pressed{
      <string>个人简历</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_5">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>40</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>幼圆</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	border-top: 5px solid qlineargradient(y0:0, y1:1,stop: 0 #ececef, stop: 1 white);
+border-left: 5px solid qlineargradient(x0:0, x1:1,stop: 0 #ececef, stop: 1 white);
+ border-bottom: 5px solid qlineargradient(y0:0, y1:1,stop: 0 white, stop: 1  #ececef);
+border-right: 5px solid qlineargradient(x0:0, x1:1,stop:  0 white, stop: 1 #ececef);
+background-color: rgb(255,255,255);
+	color:#aaa
+}
+QPushButton:pressed{
+	padding-top:15px;
+	padding-left:15px;
+}</string>
+    </property>
+    <property name="text">
+     <string>注销账号</string>
+    </property>
+   </widget>
    <zorder>label</zorder>
    <zorder>tableView</zorder>
    <zorder>label_2</zorder>
@@ -340,6 +375,7 @@ QPushButton:pressed{
    <zorder>pushButton_3</zorder>
    <zorder>listView</zorder>
    <zorder>pushButton_4</zorder>
+   <zorder>pushButton_5</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
