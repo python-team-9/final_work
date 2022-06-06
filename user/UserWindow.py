@@ -9,7 +9,7 @@ import json
 import _thread
 import time
 from PyQt5.QtWidgets import QWidget, QTableView, QAbstractItemView, QToolTip, qApp, QPushButton, QLabel, QVBoxLayout, \
-    QHBoxLayout, QApplication, QMainWindow, QHeaderView
+    QHBoxLayout, QApplication, QMainWindow, QHeaderView, QMessageBox
 
 from PyQt5.QtCore import Qt, QStringListModel
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QCursor, QFont, QPainter
@@ -366,8 +366,20 @@ class UserWindow(QMainWindow):
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
     def zhuxiao(self):
-
-
+        res = QMessageBox.question(self, "确认注销账号", "账号注销数据无法恢复！", QMessageBox.Yes|QMessageBox.Cancel)
+        if res==QMessageBox.Yes:
+            sql = "DELETE FROM {} WHERE id=\'{}\';".format(self.identity, self.userid)
+            print("删除账号", sql)
+            jdata = [{'request': 'getAccDetailSQL', 'sql': sql}]
+            self.client.send(json.dumps(jdata).encode())
+            jres = json.loads(m_recv(self.client))
+            if jres[0]['num'] == 1:
+                QMessageBox.about(self, '注销账号', '成功！')
+                self.close()
+            else:
+                QMessageBox.critical(self, '注销账号失败', '可能存在网络问题')
+        else:
+            return
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
