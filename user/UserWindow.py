@@ -29,7 +29,6 @@ class UserWindow(QMainWindow):
         self.ui.pushButton_4.clicked.connect(self.addjianli)
         self.ui.pushButton_5.clicked.connect(self.zhuxiao)
 
-
         self.userid = userid
         self.password = password
         self.username = username
@@ -229,7 +228,8 @@ class UserWindow(QMainWindow):
             data2.append(index)
         print("data2", data2)
 
-        self.color = ["#ffc656", "#2fc7e8", "#3ed7b7", "#0099CC", "#99CC66", "#CCCCCC", "#FF6666"]
+        self.color = ["#ffc656", "#2fc7e8", "#3ed7b7", "#0099CC", "#99CC66", "#CCCCCC", "#FF6666", "#333399", "#FF0033",
+                      "#FFFF00", "#FFCCCC", "#003399", "#99CC00", "#009999", "#990066", "#666699"]
 
         self.pieseries1 = QPieSeries()
         self.pieseries1.hovered.connect(self.do_pieHover)
@@ -366,8 +366,8 @@ class UserWindow(QMainWindow):
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
     def zhuxiao(self):
-        res = QMessageBox.question(self, "确认注销账号", "账号注销数据无法恢复！", QMessageBox.Yes|QMessageBox.Cancel)
-        if res==QMessageBox.Yes:
+        res = QMessageBox.question(self, "确认注销账号", "账号注销数据无法恢复！", QMessageBox.Yes | QMessageBox.Cancel)
+        if res == QMessageBox.Yes:
             sql = "DELETE FROM {} WHERE id=\'{}\';".format(self.identity, self.userid)
             print("删除账号", sql)
             jdata = [{'request': 'getAccDetailSQL', 'sql': sql}]
@@ -380,6 +380,7 @@ class UserWindow(QMainWindow):
                 QMessageBox.critical(self, '注销账号失败', '可能存在网络问题')
         else:
             return
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
