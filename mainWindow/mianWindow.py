@@ -24,6 +24,7 @@ class mainWindows:
         self.identity = self.logupW.identity
         self.logupW.close()
         if self.identity == 'users':
+            print("登录user")
             self.userW = user.UserWindow(self.client, self.id, self.password, self.username, self.identity)
             self.userW.show()
 
