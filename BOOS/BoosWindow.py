@@ -1,6 +1,7 @@
 from TCPmodule import m_recv
 from boosUI import *
 from TCPmodule import m_recv
+import pyqresume as resume_w
 import pymysql
 import sys
 import json
@@ -54,6 +55,7 @@ class BoosWindow(QMainWindow):
         self.ui.pushButton_2.clicked.connect(self.close_window_clicked)
         self.ui.pushButton_6.clicked.connect(self.releaseJobInformation)
         self.ui.pushButton_7.clicked.connect(self.zhuxiao)
+        self.ui.tableView.doubleClicked.connect(self.show_resume)
         """
         self.ui.pushButton_6.clicked.connect(self.search)
         self.ui.pushButton_4.clicked.connect(self.min_window_clicked)
@@ -244,6 +246,27 @@ class BoosWindow(QMainWindow):
                 QMessageBox.critical(self, '注销账号失败', '可能存在网络问题')
         else:
             return
+
+    def show_resume(self, index):
+        col = index.column()
+        row = index.row()
+        print(col, row)
+        print(self.all_job_datas[1][row])
+        id = self.all_job_datas[1][row]['id']
+        sql = 'select * from personalResume where id={}'.format(id)
+        jdata = [{'request': 'getJobDetailSQL', 'sql': sql}]
+        self.client.send(json.dumps(jdata).encode())
+        res = json.loads(m_recv(self.client))
+        if res[0]['num'] == 0:
+            QMessageBox.about(self, "提示", "暂无简历")
+            return
+        
+        print(res)
+        personal_resume = res[1]
+        self.qresume = resume_w.pyqresume(personal_resume)
+        self.qresume.show()
+
+
 
 
 client = socket.socket()
