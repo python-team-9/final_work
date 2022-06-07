@@ -218,14 +218,14 @@ class BoosWindow(QMainWindow):
         sql = 'INSERT INTO jobOfferDetail(jobName,jobCompany,jobSalary,jobPlace,jobDescribe,jobNumber,jobEducation,jobExperience) VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',{},\'{}\',\'{}\')'.format(jobName,jobCompany,jobSalary,jobPlace,jobDescribe,jobNumber,jobEducation,jobExperience)
         jdata = [{'request':'getJobDetailSQL', 'sql':sql}]
         self.client.send(json.dumps(jdata).encode())
-        res = m_recv(self.client)
+        res = json.loads(m_recv(self.client))
 
         # cursor.execute('INSERT INTO jobOfferDetail(jobName,jobCompany,jobSalary,jobPlace,jobDescribe,jobNumber,jobEducation,jobExperience) VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format
         #               (jobName,jobCompany,jobSalary,jobPlace,jobDescribe,jobNumber,jobEducation,jobExperience))
         #print("OK")
         # db.commit()
         # db.close()
-        if res[0]['request_return'] == 'getJobDetail':
+        if res[0]['request_return'] == 'getJobDetailSQL':
             QMessageBox.about(self, "提示", "招聘发布成功")
 
         return
