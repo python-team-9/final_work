@@ -60,11 +60,10 @@ class AdministratorWindow(QMainWindow):
         self.ui.lineEdit_5.returnPressed.connect(self.deleteJob)
         sql = """
                 SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"""
-        """try:
+        try:
             _thread.start_new_thread(self.getdata, (self.client,sql))
         except:
-            print("启动线程失败")"""
-        self.getdata(self.client,sql)
+            print("启动线程失败")
 
 
     def getdata(self, client,sql):
@@ -82,7 +81,12 @@ class AdministratorWindow(QMainWindow):
         # 关闭数据库连接
         #conn.close()
 
-        sql = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"
+        #jdata = [{'request': 'login', 'passwd': '1', 'id': '1', 'identity':'managers'}]
+        #jdata = [{'request': 'login', 'passwd': '2', 'id': '2', 'identity': 'bosses'}]
+        #client.send(json.dumps(jdata).encode())
+        #jres = json.loads(m_recv(client))
+        #print(jres)
+        #sql = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"
         jdata = [{'request': 'getJobDetailSQL', 'sql': sql}]
         self.client.send(json.dumps(jdata).encode())
         jres = json.loads(m_recv(client))
@@ -101,6 +105,8 @@ class AdministratorWindow(QMainWindow):
             self.all_job_datas[1].append(job)
         print(self.all_job_datas)
 
+        num = jres[0]['num']
+        data = jres[1:]
         print(num)
         print(data)
         """防止最后数据数为0报错，数据数为0显示空表"""
@@ -126,12 +132,17 @@ class AdministratorWindow(QMainWindow):
         self.table_view.doubleClicked.connect(self.get_table_item)
         self.table_view.clicked.connect(self.get_cell_tip)
         self.table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 使表宽度自适应
+        print("OK")
+        print(self.all_job_datas[1][0])
 
+        print(self.all_job_datas)
         for i in range(self.all_job_datas[0]):
-            for j in range(len(self.all_job_datas[1][0])):
-                job_info = QStandardItem(str(self.all_job_datas[1][i][j]))
+            j = 0
+            for key in self.all_job_datas[1][i]:
+                job_info = QStandardItem(str(self.all_job_datas[1][i][key]))
                 self.model.setItem(i, j, job_info)
                 job_info.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+                j += 1
 
         self.table_view.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 表格不可编辑
         self.table_view.setModel(self.model)
@@ -186,9 +197,9 @@ class AdministratorWindow(QMainWindow):
             print("启动线程失败")
     def deleteJob(self):
         text = self.ui.lineEdit_5.text()
-        sql = """SELECT * FROM jobOfferinformation.jobOfferDetail where jobOfferid = """+text
+        #sql = """SELECT * FROM jobOfferinformation.jobOfferDetail where jobOfferid = """+text
         # 直接访问数据库
-        conn = pymysql.connect(host="47.99.201.114", port=3306, user="root", password="Aa123456",
+        """conn = pymysql.connect(host="47.99.201.114", port=3306, user="root", password="Aa123456",
                                database="jobOfferinformation", charset="utf8")
         # 得到一个可以执行SQL语句的光标对象
         cursor = conn.cursor()  # 执行完毕返回的结果集默认以元组显示
@@ -199,12 +210,9 @@ class AdministratorWindow(QMainWindow):
         if num == 0:
             QMessageBox.warning(self, "警告", "jobOfferid不存在")
             return
-        sql = """delete FROM jobOfferinformation.jobOfferDetail where jobOfferid = """+text
+        sql = delete FROM jobOfferinformation.jobOfferDetail where jobOfferid = +text
         cursor.execute(sql)
         conn.commit()#不提交不会显示
-        sql = """
-                SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;
-                """
         num = cursor.execute(sql)
         data = cursor.fetchall()
         # 关闭光标对象
@@ -213,7 +221,7 @@ class AdministratorWindow(QMainWindow):
         conn.close()
         print(num)
         print(data)
-        """防止最后数据数为0报错，数据数为0显示空表"""
+        #防止最后数据数为0报错，数据数为0显示空表
         if(num == 0):
             data = (('','','','',''))
         self.ui.label_3.setText("招聘信息总数:" + str(num))
@@ -244,7 +252,26 @@ class AdministratorWindow(QMainWindow):
                 job_info.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
 
         self.table_view.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 表格不可编辑
-        self.table_view.setModel(self.model)
+        self.table_view.setModel(self.model)"""
+        res = QMessageBox.question(self, "确认删除招聘", "招聘删除后无法恢复！", QMessageBox.Yes | QMessageBox.Cancel)
+        if res == QMessageBox.Yes:
+            sql = "delete FROM jobOfferinformation.jobOfferDetail where jobOfferid =" +text
+            print("删除账号", sql)
+            jdata = [{'request': 'getAccDetailSQL', 'sql': sql}]
+            self.client.send(json.dumps(jdata).encode())
+            jres = json.loads(m_recv(self.client))
+            if jres[0]['num'] == 1:
+                QMessageBox.about(self, '删除招聘', '成功！')
+            else:
+                QMessageBox.critical(self, '删除招聘失败', '可能存在网络问题')
+            sql = """
+                            SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"""
+            try:
+                _thread.start_new_thread(self.getdata, (self.client, sql))
+            except:
+                print("启动线程失败")
+        else:
+            return
         print('线程结束')
         return
 
