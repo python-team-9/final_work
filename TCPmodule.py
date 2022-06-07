@@ -20,6 +20,6 @@ def m_recv(chat):
 
         except ConnectionError:
             print('连接错误')
-            pass
+            break
 
     return all_data[:-1]
