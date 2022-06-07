@@ -34,11 +34,12 @@ class AdministratorWindow(QMainWindow):
         self.password = password
         self.username = username
         self.identity = identity
+        self.client = client
 
-        self.client = socket.socket()
-        host = '47.99.201.114'
-        port = 1010
-        self.client.connect((host, port))
+        #self.client = socket.socket()
+        #host = '47.99.201.114'
+        #port = 1010
+        #self.client.connect((host, port))
 
 
 
@@ -58,28 +59,48 @@ class AdministratorWindow(QMainWindow):
         self.ui.lineEdit_4.returnPressed.connect(self.search)
         self.ui.lineEdit_5.returnPressed.connect(self.deleteJob)
         sql = """
-                SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;
-                """
-        try:
+                SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"""
+        """try:
             _thread.start_new_thread(self.getdata, (self.client,sql))
         except:
-            print("启动线程失败")
+            print("启动线程失败")"""
+        self.getdata(self.client,sql)
 
 
     def getdata(self, client,sql):
         # 直接访问数据库
-        conn = pymysql.connect(host="47.99.201.114", port=3306, user ="root", password ="Aa123456",database ="jobOfferinformation",charset ="utf8")
+        #conn = pymysql.connect(host="47.99.201.114", port=3306, user ="root", password ="Aa123456",database ="jobOfferinformation",charset ="utf8")
         # 得到一个可以执行SQL语句的光标对象
-        cursor = conn.cursor()  # 执行完毕返回的结果集默认以元组显示
+        #cursor = conn.cursor()  # 执行完毕返回的结果集默认以元组显示
         # 得到一个可以执行SQL语句并且将结果作为字典返回的游标
         # cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
         # 执行SQL语句
-        num = cursor.execute(sql)
-        data = cursor.fetchall()
+        #num = cursor.execute(sql)
+        #data = cursor.fetchall()
         # 关闭光标对象
-        cursor.close()
+        #cursor.close()
         # 关闭数据库连接
-        conn.close()
+        #conn.close()
+
+        sql = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"
+        jdata = [{'request': 'getJobDetailSQL', 'sql': sql}]
+        self.client.send(json.dumps(jdata).encode())
+        jres = json.loads(m_recv(client))
+        print("jres是", jres)
+        print("jres[0]['num']", jres[0]['num'])
+        self.all_job_datas = []
+        self.all_job_datas.append(jres[0]['num'])
+        self.all_job_datas.append([])
+        for i in range(0, jres[0]['num']):
+            job = []
+            job.append(jres[i + 1]['jobName'])
+            job.append(jres[i + 1]['jobCompany'])
+            job.append(jres[i + 1]['jobSalary'])
+            job.append(jres[i + 1]['jobPlace'])
+            job.append(jres[i + 1]['jobOfferid'])
+            self.all_job_datas[1].append(job)
+        print(self.all_job_datas)
+
         print(num)
         print(data)
         """防止最后数据数为0报错，数据数为0显示空表"""
@@ -243,11 +264,11 @@ class AdministratorWindow(QMainWindow):
         else:
             return
 
-
-
-
-
+client = socket.socket()
+host = '47.99.201.114'
+port = 1010
+client.connect((host, port))
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    win = AdministratorWindow()
+    win = AdministratorWindow(client,"1","1", '南宁市广迪自动化科技有限公司','manager')
     sys.exit(app.exec_())
