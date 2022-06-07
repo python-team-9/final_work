@@ -88,11 +88,11 @@ class BoosWindow(QMainWindow):
 
         # 服务器返回所有申请本公司职位的信息
         # print('login')
-        jdata = [{'request': 'login', 'passwd': '2', 'id': '2', 'identity':'bosses'}]
-        client.send(json.dumps(jdata).encode())
-        print(client)
-        jres = json.loads(m_recv(client))
-        print(jres)
+        #jdata = [{'request': 'login', 'passwd': '2', 'id': '2', 'identity':'bosses'}]
+        #client.send(json.dumps(jdata).encode())
+        #print(client)
+        #jres = json.loads(m_recv(client))
+        #print(jres)
         # print('get')
         jdata = [{'request':'getApplicant', 'identity':'bosses', 'company':self.company}]
         client.send(json.dumps(jdata).encode())
