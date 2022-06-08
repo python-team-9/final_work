@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1006, 491)
+        MainWindow.resize(1006, 510)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -22,8 +22,9 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(11)
         self.label.setFont(font)
-        self.label.setStyleSheet("background:#E8E8E8;\n"
-"border-radius:30px;")
+        self.label.setStyleSheet("background:#fff;\n"
+"border-radius:30px;"
+"border:1px solid #000")
         self.label.setText("")
         self.label.setObjectName("label")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
@@ -93,25 +94,25 @@ class Ui_MainWindow(object):
         self.lineEdit.setGeometry(QtCore.QRect(140, 50, 301, 31))
         self.lineEdit.setStyleSheet("border:none;\n"
 "border-bottom: 1px solid #000;\n"
-"background:#E8E8E8;")
+"background:#fff;")
         self.lineEdit.setObjectName("lineEdit")
         self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_2.setGeometry(QtCore.QRect(140, 120, 301, 31))
         self.lineEdit_2.setStyleSheet("border:none;\n"
 "border-bottom: 1px solid #000;\n"
-"background:#E8E8E8;")
+"background:#fff;")
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.lineEdit_3 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_3.setGeometry(QtCore.QRect(140, 190, 301, 31))
         self.lineEdit_3.setStyleSheet("border:none;\n"
 "border-bottom: 1px solid #000;\n"
-"background:#E8E8E8;")
+"background:#fff;")
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.lineEdit_4 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_4.setGeometry(QtCore.QRect(140, 260, 301, 31))
         self.lineEdit_4.setStyleSheet("border:none;\n"
 "border-bottom: 1px solid #000;\n"
-"background:#E8E8E8;")
+"background:#fff;")
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
         self.label_6.setGeometry(QtCore.QRect(490, 60, 91, 20))
@@ -123,7 +124,7 @@ class Ui_MainWindow(object):
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit.setGeometry(QtCore.QRect(493, 100, 451, 331))
         self.textEdit.setStyleSheet("QTextEdit{\n"
-"background:#E8E8E8;\n"
+"background:#fff;\n"
 "border:1px solid #000;\n"
 "border-radius:10px;\n"
 "}\n"
@@ -140,13 +141,13 @@ class Ui_MainWindow(object):
         self.lineEdit_5.setGeometry(QtCore.QRect(140, 330, 301, 31))
         self.lineEdit_5.setStyleSheet("border:none;\n"
 "border-bottom: 1px solid #000;\n"
-"background:#E8E8E8;")
+"background:#fff;")
         self.lineEdit_5.setObjectName("lineEdit_5")
         self.lineEdit_6 = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_6.setGeometry(QtCore.QRect(140, 400, 301, 31))
         self.lineEdit_6.setStyleSheet("border:none;\n"
 "border-bottom: 1px solid #000;\n"
-"background:#E8E8E8;")
+"background:#fff;")
         self.lineEdit_6.setObjectName("lineEdit_6")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
