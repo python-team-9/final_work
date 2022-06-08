@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1177, 890)
+        MainWindow.resize(1768, 890)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
@@ -136,14 +136,14 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_7.setObjectName("pushButton_7")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
-        self.label_8.setGeometry(QtCore.QRect(0, 0, 1101, 31))
+        self.label_8.setGeometry(QtCore.QRect(0, 0, 1621, 31))
         self.label_8.setStyleSheet("background:rgb(218,218,218);\n"
 "border-top-left-radius:30px;\n"
 "border-top-right-radius:30px;")
         self.label_8.setText("")
         self.label_8.setObjectName("label_8")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(1030, 10, 16, 16))
+        self.pushButton.setGeometry(QtCore.QRect(1550, 10, 16, 16))
         self.pushButton.setStyleSheet("QPushButton{\n"
 "    border-radius:8px;\n"
 "    background-color: #336666;\n"
@@ -157,7 +157,7 @@ class Ui_MainWindow(object):
         self.pushButton.setText("")
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(1060, 10, 16, 16))
+        self.pushButton_2.setGeometry(QtCore.QRect(1580, 10, 16, 16))
         self.pushButton_2.setStyleSheet("QPushButton{\n"
 "    border-radius:8px;\n"
 "    background-color: #336666;\n"
@@ -190,7 +190,7 @@ class Ui_MainWindow(object):
         self.tableView.setStyleSheet("")
         self.tableView.setObjectName("tableView")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(0, 0, 1101, 841))
+        self.label.setGeometry(QtCore.QRect(0, 0, 1621, 841))
         self.label.setStyleSheet("background:#FFF;\n"
 "border-radius:30px;")
         self.label.setText("")
@@ -207,6 +207,50 @@ class Ui_MainWindow(object):
         font.setFamily("幼圆")
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
+        self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_8.setGeometry(QtCore.QRect(1280, 31, 111, 25))
+        font = QtGui.QFont()
+        font.setFamily("幼圆")
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_8.setFont(font)
+        self.pushButton_8.setStyleSheet("#pushButton_8{\n"
+"border:none;\n"
+"}\n"
+"#pushButton_8:focus{\n"
+"color:rgb(186,186,186);\n"
+"}")
+        self.pushButton_8.setObjectName("pushButton_8")
+        self.tableView_2 = QtWidgets.QTableView(self.centralwidget)
+        self.tableView_2.setGeometry(QtCore.QRect(1130, 150, 481, 671))
+        self.tableView_2.setStyleSheet("")
+        self.tableView_2.setObjectName("tableView_2")
+        self.pushButton_10 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_10.setGeometry(QtCore.QRect(1130, 80, 101, 41))
+        font = QtGui.QFont()
+        font.setFamily("幼圆")
+        font.setPointSize(12)
+        self.pushButton_10.setFont(font)
+        self.pushButton_10.setStyleSheet("QPushButton{\n"
+"    background-color:qlineargradient(spread:pad, x1:0, y1:0,         x2:1, y2:1, stop:0 #663300, stop:1 #333333);\n"
+"    color:#fff;\n"
+"    border-radius:5px;\n"
+"    border:none;\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    padding-top:15px;\n"
+"    padding-left:15px;\n"
+"}\n"
+"\n"
+"")
+        self.pushButton_10.setObjectName("pushButton_10")
+        self.lineEdit_8 = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_8.setGeometry(QtCore.QRect(1250, 80, 351, 41))
+        self.lineEdit_8.setStyleSheet("border:none;\n"
+"border-bottom:2px solid #000;\n"
+"")
+        self.lineEdit_8.setObjectName("lineEdit_8")
         self.label.raise_()
         self.pushButton_4.raise_()
         self.widget.raise_()
@@ -217,9 +261,13 @@ class Ui_MainWindow(object):
         self.tableView.raise_()
         self.label_3.raise_()
         self.label_4.raise_()
+        self.pushButton_8.raise_()
+        self.tableView_2.raise_()
+        self.pushButton_10.raise_()
+        self.lineEdit_8.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1177, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1768, 22))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -247,4 +295,7 @@ class Ui_MainWindow(object):
         self.pushButton_5.setText(_translate("MainWindow", "发布招聘"))
         self.label_3.setText(_translate("MainWindow", "欢迎"))
         self.label_4.setText(_translate("MainWindow", "南宁市瑞薪电子科技有限公司"))
+        self.pushButton_8.setText(_translate("MainWindow", "我的招聘"))
+        self.pushButton_10.setText(_translate("MainWindow", "删除"))
+        self.lineEdit_8.setPlaceholderText(_translate("MainWindow", "请输入招聘id"))
 

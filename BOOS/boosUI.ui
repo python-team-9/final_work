@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1177</width>
+    <width>1768</width>
     <height>890</height>
    </rect>
   </property>
@@ -328,7 +328,7 @@ QPushButton:pressed{
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1101</width>
+      <width>1621</width>
       <height>31</height>
      </rect>
     </property>
@@ -344,7 +344,7 @@ border-top-right-radius:30px;</string>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>1030</x>
+      <x>1550</x>
       <y>10</y>
       <width>16</width>
       <height>16</height>
@@ -369,7 +369,7 @@ QPushButton:hover{
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>1060</x>
+      <x>1580</x>
       <y>10</y>
       <width>16</width>
       <height>16</height>
@@ -438,7 +438,7 @@ color:rgb(186,186,186);
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1101</width>
+      <width>1621</width>
       <height>841</height>
      </rect>
     </property>
@@ -486,6 +486,99 @@ border-radius:30px;</string>
      <string>南宁市瑞薪电子科技有限公司</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_8">
+    <property name="geometry">
+     <rect>
+      <x>1280</x>
+      <y>31</y>
+      <width>111</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>幼圆</family>
+      <pointsize>15</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#pushButton_8{
+border:none;
+}
+#pushButton_8:focus{
+color:rgb(186,186,186);
+}</string>
+    </property>
+    <property name="text">
+     <string>我的招聘</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView_2">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>150</y>
+      <width>481</width>
+      <height>671</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_10">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>80</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>幼圆</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:qlineargradient(spread:pad, x1:0, y1:0, 		x2:1, y2:1, stop:0 #663300, stop:1 #333333);
+	color:#fff;
+	border-radius:5px;
+	border:none;
+}
+QPushButton:pressed{
+	padding-top:15px;
+	padding-left:15px;
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string>删除</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_8">
+    <property name="geometry">
+     <rect>
+      <x>1250</x>
+      <y>80</y>
+      <width>351</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border:none;
+border-bottom:2px solid #000;
+</string>
+    </property>
+    <property name="placeholderText">
+     <string>请输入招聘id</string>
+    </property>
+   </widget>
    <zorder>label</zorder>
    <zorder>pushButton_4</zorder>
    <zorder>widget</zorder>
@@ -496,13 +589,17 @@ border-radius:30px;</string>
    <zorder>tableView</zorder>
    <zorder>label_3</zorder>
    <zorder>label_4</zorder>
+   <zorder>pushButton_8</zorder>
+   <zorder>tableView_2</zorder>
+   <zorder>pushButton_10</zorder>
+   <zorder>lineEdit_8</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1177</width>
+     <width>1768</width>
      <height>22</height>
     </rect>
    </property>
