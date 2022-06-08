@@ -26,6 +26,8 @@ class pyqresume(QMainWindow):
         elif self_resume['sex'] == 'f':
             self.ui.radioButton_2.setChecked(True)
 
+        # self.ui.label.setStyleSheet('''QWidget{background-color:#FFFFFF;}''')
+
 
 
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
