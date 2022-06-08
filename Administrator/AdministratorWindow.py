@@ -189,7 +189,7 @@ class AdministratorWindow(QMainWindow):
 
     def search(self):
         text = self.ui.lineEdit_4.text()
-        searsql = """SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferinformation.jobOfferDetail where jobName like \"%"""+text+"""%\""""
+        searsql = """SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferinformation.jobOfferDetail where """ + self.ui.comboBox.currentText()+""" like \"%"""+text+"""%\""""
         print(searsql)
         try:
             _thread.start_new_thread(self.getdata, (self.client,searsql))
