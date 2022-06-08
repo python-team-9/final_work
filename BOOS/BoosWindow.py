@@ -193,7 +193,6 @@ class BoosWindow(QMainWindow):
         """防止最后数据数为0报错，数据数为0显示空表"""
         if (num == 0):
             data = (('', '', '', '', ''))
-        self.ui.label_3.setText("招聘信息总数:" + str(num))
         datas = [num, data]
         self.all_job_datas2 = datas
         # 请求服务器访问数据库
