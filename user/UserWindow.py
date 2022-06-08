@@ -3,6 +3,7 @@ import addjianli as jianli
 
 from TCPmodule import m_recv
 from userUI import *
+import pyqdetail as detail
 import pymysql
 import sys
 import json
@@ -78,7 +79,7 @@ class UserWindow(QMainWindow):
         # # 关闭数据库连接
         # conn.close()
         print("开始查询getdata")
-        sql = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"
+        sql = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid,jobDescribe,jobEducation,jobExperience FROM jobOfferDetail;"
         jdata = [{'request': 'getJobDetailSQL', 'sql': sql}]
         self.client.send(json.dumps(jdata).encode())
         jres = json.loads(m_recv(self.client))
@@ -94,6 +95,9 @@ class UserWindow(QMainWindow):
             job.append(jres[i + 1]['jobSalary'])
             job.append(jres[i + 1]['jobPlace'])
             job.append(jres[i + 1]['jobOfferid'])
+            job.append(jres[i + 1]['jobDescribe'])
+            job.append(jres[i + 1]['jobEducation'])
+            job.append(jres[i + 1]['jobExperience'])
             self.all_job_datas[1].append(job)
         print(self.all_job_datas)
 
@@ -164,14 +168,21 @@ class UserWindow(QMainWindow):
         print("选中工作id为", self.jobOfferid)
         QToolTip.showText(QCursor.pos(), contents)
 
-    def get_table_item(self):
+    def get_table_item(self, index):
         """获取表格中的数据"""
-        column = self.table_view.currentIndex().column()  # 获取所在列数
-        contents = self.table_view.currentIndex().data()  # 获取数据
+        col = index.column()
+        row = index.row()
+        tmp = self.all_job_datas[1][row]
+        print(tmp)
+        m_detail = {'jobName':tmp[0], 'jobCompany':tmp[1], 'jobSalary':tmp[2], 'jobPlace':tmp[3], 'jobDescribe':tmp[5], 'jobEducation':tmp[6], 'jobExperience':tmp[7]}
+        self.show_detail = detail.pyqdetail(m_detail)
+        self.show_detail.show()
+        # column = self.table_view.currentIndex().column()  # 获取所在列数
+        # contents = self.table_view.currentIndex().data()  # 获取数据
         # QToolTip.showText(QCursor.pos(), contents)
-        clipboard = qApp.clipboard()  # 获取剪贴板
-        clipboard.setText(contents)
-        QToolTip.showText(QCursor.pos(), "已复制")
+        # clipboard = qApp.clipboard()  # 获取剪贴板
+        # clipboard.setText(contents)
+        # QToolTip.showText(QCursor.pos(), "已复制")
 
     def getchartdetail(self):
         # conn = pymysql.connect(host="47.99.201.114", port=3306, user="root", password="Aa123456",
