@@ -68,9 +68,9 @@ QPushButton:pressed{
    <widget class="QLineEdit" name="lineEdit_4">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>310</x>
       <y>60</y>
-      <width>891</width>
+      <width>791</width>
       <height>41</height>
      </rect>
     </property>
@@ -80,7 +80,7 @@ border-bottom:2px solid #000;
 </string>
     </property>
     <property name="placeholderText">
-     <string>请输入职位名称</string>
+     <string>请输入相关信息</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -288,6 +288,44 @@ QPushButton:pressed{
      <string>注销账号</string>
     </property>
    </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>60</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border:1px solid gray;  border-radius:3px;  padding: 5px; min-width:4em;subcontrol-origin:padding; subcontrol-position:top right; width:20px; border-left-width:1px;border-left-color:darkgray; border-left-style:solid; border-top-right-radius:3px; border-bottom-right-radius:3px;</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>jobName</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>jobCompany</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>jobSalary</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>jobPlace</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>jobOfferid</string>
+     </property>
+    </item>
+   </widget>
    <zorder>label_2</zorder>
    <zorder>label_8</zorder>
    <zorder>pushButton_6</zorder>
@@ -300,6 +338,7 @@ QPushButton:pressed{
    <zorder>pushButton_7</zorder>
    <zorder>label_3</zorder>
    <zorder>pushButton_8</zorder>
+   <zorder>comboBox</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
