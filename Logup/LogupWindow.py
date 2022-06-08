@@ -73,19 +73,28 @@ class LoadingWindow(QMainWindow):
             self.identity = 'users'
         elif self.ui.radioButton_2.isChecked():
             self.identity = 'managers'
-        else:
+        elif self.ui.radioButton_5.isChecked():
             self.identity = 'bosses'
+        else:
+            self.massage = '未选择身份！'
+            self.show_error()
         if self.userid=='':
             self.massage = '用户名为空！'
             self.show_error()
-
+        print("账号输入",self.userid,self.password,self.identity)
         print('login_db')
         a = login_db.login(self.client, self.userid, self.password, self.identity)
+        print('a等于', a)
 
         if a[0] == '用户未注册或账号错误':
             self.massage = '用户未注册或账号错误！'
             print('用户未注册或账号错误！')
             self.show_error()
+        elif a[0] == '密码错误':
+            self.massage = '密码错误！'
+            print('密码错误！')
+            self.show_error()
+
         else:
             self.userid = a[1][0]
             self.password = a[1][1]
@@ -118,10 +127,12 @@ class LoadingWindow(QMainWindow):
         else:
             if self.ui.radioButton_4.isChecked():
                 self.identity = 'users'
-            elif self.ui.radioButton_3.isChecked():
-                self.identity = 'managers'
-            else:
+            elif self.ui.radioButton_6.isChecked():
                 self.identity = 'bosses'
+            else:
+                print('未选择身份')
+                self.massage = '未选择身份'
+                self.show_error()
 
             self.username = self.ui.lineEdit_6.text()
             print("昵称", self.username)

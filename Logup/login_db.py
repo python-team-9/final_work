@@ -75,18 +75,40 @@ def login(client, id, password, identity):
     # '密码错误'
     # '登录成功'
     j_res = json.loads(m_recv(client))
-    info = []
-    info.append(j_res[1]['id'])
-    info.append(j_res[1]['password'])
-    info.append(j_res[1]['name'])
-    res = [j_res[0]['login_state'], info]
-    # res = client.recv(1024).decode()
-    print(res)
-    if j_res[0]['request_return'] == 'login':
-        return res
+    print('登录结果:j_res', j_res)
+    if j_res[0]['login_state'] == '用户未注册或账号错误':
+        info = []
+        res = [j_res[0]['login_state'], info]
+        print(res)
+        if j_res[0]['request_return'] == 'login':
+            return res
+        else:
+            print('服务器返回数据出错！')
+            return 'error'
+
+    elif j_res[0]['login_state'] == '密码错误':
+        info = []
+        res = [j_res[0]['login_state'], info]
+        print(res)
+        if j_res[0]['request_return'] == 'login':
+            return res
+        else:
+            print('服务器返回数据出错！')
+            return 'error'
+
     else:
-        print('服务器返回数据出错！')
-        return 'error'
+        info = []
+        info.append(j_res[1]['id'])
+        info.append(j_res[1]['password'])
+        info.append(j_res[1]['name'])
+        res = [j_res[0]['login_state'], info]
+        # res = client.recv(1024).decode()
+        print(res)
+        if j_res[0]['request_return'] == 'login':
+            return res
+        else:
+            print('服务器返回数据出错！')
+            return 'error'
 
     # sql = "select * from {} where id=\'{}\' and password=\'{}\';".format(identity, id, password)
     # jdata = [{'request': 'getAccDetailSQL', 'sql': sql}]
