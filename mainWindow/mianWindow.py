@@ -4,7 +4,7 @@ sys.path.append('../user/')
 sys.path.append('../BOOS')
 sys.path.append('../Administrator')
 import LogupWindow as logup
-import UserWindow as user
+#import UserWindow as user
 import BoosWindow as boss
 import AdministratorWindow as adm
 

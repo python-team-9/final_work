@@ -7,9 +7,9 @@ import sys
 import json
 import _thread
 import time
+
 """from PyQt5.QtWidgets import QWidget, QTableView, QAbstractItemView, QToolTip, qApp, QPushButton, QLabel, QVBoxLayout, \
     QHBoxLayout, QApplication, QMainWindow, QHeaderView
-
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QCursor, QFont"""
 from PyQt5.QtWidgets import *
@@ -19,10 +19,8 @@ from PyQt5.QtGui import *
 import socket
 
 
-
-
 class BoosWindow(QMainWindow):
-    def __init__(self, client,userid, company,identity):
+    def __init__(self, client, userid, company, identity):
         super().__init__()
         print('init boss')
         self.ui = Ui_MainWindow()
@@ -40,8 +38,6 @@ class BoosWindow(QMainWindow):
         # port = 1010
         # self.client.connect((host, port))
 
-
-
         # self.table_view.setColumnWidth(0, 100)
         # self.table_view.setColumnWidth(1, 130)
         # self.table_view.setColumnWidth(2, 150)
@@ -49,7 +45,6 @@ class BoosWindow(QMainWindow):
         # self.table_view.setColumnWidth(4, 160)
         # self.table_view.setColumnWidth(5, 165)
         # 调节列宽度
-
 
         self.ui.pushButton.clicked.connect(self.min_window_clicked)
         self.ui.pushButton_2.clicked.connect(self.close_window_clicked)
@@ -65,25 +60,23 @@ class BoosWindow(QMainWindow):
         self.company = company
         self.ui.label_4.setText(self.company)
         sql = """
-                SELECT id,name,jobName FROM al join accoujobOfferinformation.jobOfferDetail natural join jobOfferinformation.resume naturnt.users where jobCompany = \""""\
-              +self.company+"""\""""
-        #try:
+                SELECT id,name,jobName FROM al join accoujobOfferinformation.jobOfferDetail natural join jobOfferinformation.resume naturnt.users where jobCompany = \"""" \
+              + self.company + """\""""
+        # try:
         #    _thread.start_new_thread(self.getdata, (self.client,sql))
-        #except:
+        # except:
         #    print("启动线程失败")
-        self.getdata(self.client,sql)
+        self.getdata(self.client, sql)
         sql = """
-                        SELECT jobName,jobNumber,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail WHERE jobCompany = \"""" +self.company+"""\" """
+                        SELECT jobName,jobNumber,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail WHERE jobCompany = \"""" + self.company + """\" """
 
-
-        #try:
+        # try:
         #    _thread.start_new_thread(self.getdata2, (self.client, sql))
-        #except:
+        # except:
         #    print("启动线程失败")
         self.getdata2(self.client, sql)
 
-
-    def getdata(self, client,sql):
+    def getdata(self, client, sql):
         # 直接访问数据库
         # conn = pymysql.connect(host="47.99.201.114", port=3306, user ="root", password ="Aa123456",database ="jobOfferinformation",charset ="utf8")
         # 得到一个可以执行SQL语句的光标对象
@@ -101,13 +94,13 @@ class BoosWindow(QMainWindow):
 
         # 服务器返回所有申请本公司职位的信息
         # print('login')
-        #jdata = [{'request': 'login', 'passwd': '2', 'id': '2', 'identity':'bosses'}]
-        #client.send(json.dumps(jdata).encode())
-        #print(client)
-        #jres = json.loads(m_recv(client))
-        #print(jres)
+        # jdata = [{'request': 'login', 'passwd': '2', 'id': '2', 'identity':'bosses'}]
+        # client.send(json.dumps(jdata).encode())
+        # print(client)
+        # jres = json.loads(m_recv(client))
+        # print(jres)
         # print('get')
-        jdata = [{'request':'getApplicant', 'identity':'bosses', 'company':self.company}]
+        jdata = [{'request': 'getApplicant', 'identity': 'bosses', 'company': self.company}]
         client.send(json.dumps(jdata).encode())
         jres = json.loads(m_recv(client))
         print(jres)
@@ -117,8 +110,8 @@ class BoosWindow(QMainWindow):
         print(num)
         print(data)
         """防止最后数据数为0报错，数据数为0显示空表"""
-        if(num == 0):
-            data = [{'id':'', 'name':'', 'jobName':'', 'jobOfferid': ''}]
+        if (num == 0):
+            data = [{'id': '', 'name': '', 'jobName': '', 'jobOfferid': ''}]
         datas = [num, data]
         self.all_job_datas = datas
         # 请求服务器访问数据库
@@ -142,7 +135,7 @@ class BoosWindow(QMainWindow):
         print(self.all_job_datas)
         for i in range(self.all_job_datas[0]):
             j = 0
-            for key in self.all_job_datas[1][i] :
+            for key in self.all_job_datas[1][i]:
                 job_info = QStandardItem(str(self.all_job_datas[1][i][key]))
                 self.model.setItem(i, j, job_info)
                 job_info.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
@@ -153,27 +146,27 @@ class BoosWindow(QMainWindow):
         print('线程结束')
         return
 
-    def getdata2(self, client,sql):
+    def getdata2(self, client, sql):
         # 直接访问数据库
-        #conn = pymysql.connect(host="47.99.201.114", port=3306, user ="root", password ="Aa123456",database ="jobOfferinformation",charset ="utf8")
+        # conn = pymysql.connect(host="47.99.201.114", port=3306, user ="root", password ="Aa123456",database ="jobOfferinformation",charset ="utf8")
         # 得到一个可以执行SQL语句的光标对象
-        #cursor = conn.cursor()  # 执行完毕返回的结果集默认以元组显示
+        # cursor = conn.cursor()  # 执行完毕返回的结果集默认以元组显示
         # 得到一个可以执行SQL语句并且将结果作为字典返回的游标
         # cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
         # 执行SQL语句
-        #num = cursor.execute(sql)
-        #data = cursor.fetchall()
+        # num = cursor.execute(sql)
+        # data = cursor.fetchall()
         # 关闭光标对象
-        #cursor.close()
+        # cursor.close()
         # 关闭数据库连接
-        #conn.close()
+        # conn.close()
 
-        #jdata = [{'request': 'login', 'passwd': '1', 'id': '1', 'identity':'managers'}]
-        #jdata = [{'request': 'login', 'passwd': '2', 'id': '2', 'identity': 'bosses'}]
-        #client.send(json.dumps(jdata).encode())
-        #jres = json.loads(m_recv(client))
-        #print(jres)
-        #sql = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"
+        # jdata = [{'request': 'login', 'passwd': '1', 'id': '1', 'identity':'managers'}]
+        # jdata = [{'request': 'login', 'passwd': '2', 'id': '2', 'identity': 'bosses'}]
+        # client.send(json.dumps(jdata).encode())
+        # jres = json.loads(m_recv(client))
+        # print(jres)
+        # sql = "SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"
         jdata = [{'request': 'getJobDetailSQL', 'sql': sql}]
         self.client.send(json.dumps(jdata).encode())
         jres = json.loads(m_recv(client))
@@ -198,9 +191,9 @@ class BoosWindow(QMainWindow):
         print(num)
         print(data)
         """防止最后数据数为0报错，数据数为0显示空表"""
-        if(num == 0):
-            data = (('','','','',''))
-        self.ui.label_3.setText("招聘信息总数:"+str(num))
+        if (num == 0):
+            data = (('', '', '', '', ''))
+        self.ui.label_3.setText("招聘信息总数:" + str(num))
         datas = [num, data]
         self.all_job_datas2 = datas
         # 请求服务器访问数据库
@@ -211,7 +204,7 @@ class BoosWindow(QMainWindow):
         # self.all_job_datas = j_res[1:-1]
         # print(self.all_job_datas)
 
-        self.column_name = ['工作名称','招聘数', '薪酬', '工作地点','jobOfferid']
+        self.column_name = ['工作名称', '招聘数', '薪酬', '工作地点', 'jobOfferid']
         self.model = QStandardItemModel(self.all_job_datas2[0], len(self.all_job_datas2[1][0]))
         self.model.setHorizontalHeaderLabels(self.column_name)
         self.table_view2 = self.ui.tableView_2
@@ -252,7 +245,7 @@ class BoosWindow(QMainWindow):
         clipboard.setText(contents)
         QToolTip.showText(QCursor.pos(), "已复制")
 
-    #解决隐藏边框后界面无法拖拽问题(重写鼠标事件 ）
+    # 解决隐藏边框后界面无法拖拽问题(重写鼠标事件 ）
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton and self.isMaximized() == False:
             self.m_flag = True
@@ -269,20 +262,20 @@ class BoosWindow(QMainWindow):
         self.m_flag = False
         self.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
 
-    def close_window_clicked(self):   #关闭窗口
+    def close_window_clicked(self):  # 关闭窗口
         self.close()
 
-    def min_window_clicked(self):     #最小化窗口
+    def min_window_clicked(self):  # 最小化窗口
         self.showMinimized()
 
     def releaseJobInformation(self):
         jobName = self.ui.lineEdit.text()
-        if(jobName == ""):
+        if (jobName == ""):
             QMessageBox.warning(self, "警告", "职位名称不能为空")
             return
         jobCompany = self.company
         jobSalary = self.ui.lineEdit_2.text()
-        if(jobSalary == ""):
+        if (jobSalary == ""):
             QMessageBox.warning(self, "警告", "薪资不能为空")
             return
         jobPlace = self.ui.lineEdit_3.text()
@@ -312,23 +305,25 @@ class BoosWindow(QMainWindow):
         # db = pymysql.connect(host="47.99.201.114", user="root", passwd="Aa123456", db="jobOfferinformation", port=3306,
         #                    charset="utf8")
         # cursor = db.cursor()
-        sql = 'INSERT INTO jobOfferDetail(jobName,jobCompany,jobSalary,jobPlace,jobDescribe,jobNumber,jobEducation,jobExperience) VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',{},\'{}\',\'{}\')'.format(jobName,jobCompany,jobSalary,jobPlace,jobDescribe,jobNumber,jobEducation,jobExperience)
-        jdata = [{'request':'getJobDetailSQL', 'sql':sql}]
+        sql = 'INSERT INTO jobOfferDetail(jobName,jobCompany,jobSalary,jobPlace,jobDescribe,jobNumber,jobEducation,jobExperience) VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',{},\'{}\',\'{}\')'.format(
+            jobName, jobCompany, jobSalary, jobPlace, jobDescribe, jobNumber, jobEducation, jobExperience)
+        jdata = [{'request': 'getJobDetailSQL', 'sql': sql}]
         self.client.send(json.dumps(jdata).encode())
         res = json.loads(m_recv(self.client))
 
         # cursor.execute('INSERT INTO jobOfferDetail(jobName,jobCompany,jobSalary,jobPlace,jobDescribe,jobNumber,jobEducation,jobExperience) VALUES(\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\',\'{}\')'.format
         #               (jobName,jobCompany,jobSalary,jobPlace,jobDescribe,jobNumber,jobEducation,jobExperience))
-        #print("OK")
+        # print("OK")
         # db.commit()
         # db.close()
         if res[0]['request_return'] == 'getJobDetailSQL':
             QMessageBox.about(self, "提示", "招聘发布成功")
 
         return
+
     def zhuxiao(self):
-        res = QMessageBox.question(self, "确认注销账号", "账号注销数据无法恢复！", QMessageBox.Yes|QMessageBox.Cancel)
-        if res==QMessageBox.Yes:
+        res = QMessageBox.question(self, "确认注销账号", "账号注销数据无法恢复！", QMessageBox.Yes | QMessageBox.Cancel)
+        if res == QMessageBox.Yes:
             sql = "DELETE FROM {} WHERE id=\'{}\';".format(self.identity, self.userid)
             print("删除招聘", sql)
             jdata = [{'request': 'getAccDetailSQL', 'sql': sql}]
@@ -355,7 +350,7 @@ class BoosWindow(QMainWindow):
         if res[0]['num'] == 0:
             QMessageBox.about(self, "提示", "暂无简历")
             return
-        
+
         print(res)
         personal_resume = res[1]
         self.qresume = resume_w.pyqresume(personal_resume)
@@ -363,7 +358,7 @@ class BoosWindow(QMainWindow):
 
     def deleteJob(self):
         text = self.ui.lineEdit_8.text()
-        #sql = """SELECT * FROM jobOfferinformation.jobOfferDetail where jobOfferid = """+text
+        # sql = """SELECT * FROM jobOfferinformation.jobOfferDetail where jobOfferid = """+text
         # 直接访问数据库
         """conn = pymysql.connect(host="47.99.201.114", port=3306, user="root", password="Aa123456",
                                database="jobOfferinformation", charset="utf8")
@@ -400,7 +395,6 @@ class BoosWindow(QMainWindow):
         # begin += j_res[0]['num']
         # self.all_job_datas = j_res[1:-1]
         # print(self.all_job_datas)
-
         self.column_name = ['工作名称', '公司', '薪酬', '工作地点', 'jobOfferid']
         self.model = QStandardItemModel(self.all_job_datas[0], len(self.all_job_datas[1][0]))
         self.model.setHorizontalHeaderLabels(self.column_name)
@@ -410,13 +404,11 @@ class BoosWindow(QMainWindow):
         self.table_view.doubleClicked.connect(self.get_table_item)
         self.table_view.clicked.connect(self.get_cell_tip)
         self.table_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 使表宽度自适应
-
         for i in range(self.all_job_datas[0]):
             for j in range(len(self.all_job_datas[1][0])):
                 job_info = QStandardItem(str(self.all_job_datas[1][i][j]))
                 self.model.setItem(i, j, job_info)
                 job_info.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-
         self.table_view.setEditTriggers(QAbstractItemView.NoEditTriggers)  # 表格不可编辑
         self.table_view.setModel(self.model)"""
         res = QMessageBox.question(self, "确认删除招聘", "招聘删除后无法恢复！", QMessageBox.Yes | QMessageBox.Cancel)
@@ -432,17 +424,25 @@ class BoosWindow(QMainWindow):
             else:
                 QMessageBox.critical(self, '删除招聘失败', '可能存在网络问题')
             sql = """
-                                    SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"""
-            try:
-                _thread.start_new_thread(self.getdata, (self.client, sql))
-            except:
-                print("启动线程失败")
+                            SELECT id,name,jobName FROM al join accoujobOfferinformation.jobOfferDetail natural join jobOfferinformation.resume naturnt.users where jobCompany = \"""" \
+                  + self.company + """\""""
+            # try:
+            #    _thread.start_new_thread(self.getdata, (self.client,sql))
+            # except:
+            #    print("启动线程失败")
+            self.getdata(self.client, sql)
+            sql = """
+                                    SELECT jobName,jobNumber,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail WHERE jobCompany = \"""" + self.company + """\" """
+
+            # try:
+            #    _thread.start_new_thread(self.getdata2, (self.client, sql))
+            # except:
+            #    print("启动线程失败")
+            self.getdata2(self.client, sql)
         else:
             return
         print('线程结束')
         return
-
-
 
 
 client = socket.socket()
@@ -451,7 +451,7 @@ port = 1010
 client.connect((host, port))
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    win = BoosWindow(client,12321, '南宁市广迪自动化科技有限公司','bosses')
+    win = BoosWindow(client, 12321, '南宁市广迪自动化科技有限公司', 'bosses')
     sys.exit(app.exec_())
 
 
