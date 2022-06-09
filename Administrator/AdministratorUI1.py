@@ -152,6 +152,25 @@ class Ui_MainWindow(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
+        self.pushButton_9 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_9.setGeometry(QtCore.QRect(70, 220, 101, 41))
+        font = QtGui.QFont()
+        font.setFamily("幼圆")
+        font.setPointSize(12)
+        self.pushButton_9.setFont(font)
+        self.pushButton_9.setStyleSheet("QPushButton{\n"
+"    background-color:qlineargradient(spread:pad, x1:0, y1:0,         x2:1, y2:1, stop:0 #663300, stop:1 #333333);\n"
+"    color:#fff;\n"
+"    border-radius:5px;\n"
+"    border:none;\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    padding-top:15px;\n"
+"    padding-left:15px;\n"
+"}\n"
+"\n"
+"")
+        self.pushButton_9.setObjectName("pushButton_9")
         self.label_2.raise_()
         self.label_8.raise_()
         self.pushButton_6.raise_()
@@ -165,6 +184,7 @@ class Ui_MainWindow(object):
         self.label_3.raise_()
         self.pushButton_8.raise_()
         self.comboBox.raise_()
+        self.pushButton_9.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1221, 22))
@@ -192,4 +212,5 @@ class Ui_MainWindow(object):
         self.comboBox.setItemText(2, _translate("MainWindow", "jobSalary"))
         self.comboBox.setItemText(3, _translate("MainWindow", "jobPlace"))
         self.comboBox.setItemText(4, _translate("MainWindow", "jobOfferid"))
+        self.pushButton_9.setText(_translate("MainWindow", "刷新"))
 

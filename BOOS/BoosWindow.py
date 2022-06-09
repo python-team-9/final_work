@@ -51,6 +51,7 @@ class BoosWindow(QMainWindow):
         self.ui.pushButton_6.clicked.connect(self.releaseJobInformation)
         self.ui.pushButton_7.clicked.connect(self.zhuxiao)
         self.ui.pushButton_10.clicked.connect(self.deleteJob)
+        self.ui.pushButton_9.clicked.connect(self.refresh)
         self.ui.tableView.doubleClicked.connect(self.show_resume)
         """
         self.ui.pushButton_6.clicked.connect(self.search)
@@ -442,6 +443,24 @@ class BoosWindow(QMainWindow):
             return
         print('线程结束')
         return
+
+    def refresh(self):
+        sql = """
+                        SELECT id,name,jobName FROM al join accoujobOfferinformation.jobOfferDetail natural join jobOfferinformation.resume naturnt.users where jobCompany = \"""" \
+              + self.company + """\""""
+        # try:
+        #    _thread.start_new_thread(self.getdata, (self.client,sql))
+        # except:
+        #    print("启动线程失败")
+        self.getdata(self.client, sql)
+        sql = """
+                                SELECT jobName,jobNumber,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail WHERE jobCompany = \"""" + self.company + """\" """
+
+        # try:
+        #    _thread.start_new_thread(self.getdata2, (self.client, sql))
+        # except:
+        #    print("启动线程失败")
+        self.getdata2(self.client, sql)
 
 
 client = socket.socket()

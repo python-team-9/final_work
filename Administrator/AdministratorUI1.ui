@@ -326,6 +326,39 @@ QPushButton:pressed{
      </property>
     </item>
    </widget>
+   <widget class="QPushButton" name="pushButton_9">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>220</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>幼圆</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color:qlineargradient(spread:pad, x1:0, y1:0, 		x2:1, y2:1, stop:0 #663300, stop:1 #333333);
+	color:#fff;
+	border-radius:5px;
+	border:none;
+}
+QPushButton:pressed{
+	padding-top:15px;
+	padding-left:15px;
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string>刷新</string>
+    </property>
+   </widget>
    <zorder>label_2</zorder>
    <zorder>label_8</zorder>
    <zorder>pushButton_6</zorder>
@@ -339,6 +372,7 @@ QPushButton:pressed{
    <zorder>label_3</zorder>
    <zorder>pushButton_8</zorder>
    <zorder>comboBox</zorder>
+   <zorder>pushButton_9</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
