@@ -51,6 +51,7 @@ class AdministratorWindow(QMainWindow):
         # self.table_view.setColumnWidth(5, 165)
         # 调节列宽度
 
+        self.ui.pushButton_9.clicked.connect(self.refresh)
         self.ui.pushButton_8.clicked.connect(self.zhuxiao)
         self.ui.pushButton_7.clicked.connect(self.deleteJob)
         self.ui.pushButton_6.clicked.connect(self.search)
@@ -290,6 +291,14 @@ class AdministratorWindow(QMainWindow):
                 QMessageBox.critical(self, '注销账号失败', '可能存在网络问题')
         else:
             return
+
+    def refresh(self):
+        sql = """
+                        SELECT jobName,jobCompany,jobSalary,jobPlace,jobOfferid FROM jobOfferDetail;"""
+        try:
+            _thread.start_new_thread(self.getdata, (self.client, sql))
+        except:
+            print("启动线程失败")
 
 client = socket.socket()
 host = '47.99.201.114'
