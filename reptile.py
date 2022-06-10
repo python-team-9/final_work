@@ -80,7 +80,7 @@ def getDetailInformationd(jobName):
 
 
 
-jobNames,jobCompanys,jobSalarys,jobPlaces,jobNumbers,jobEducations,jobExperiences = getInformation("https://s.gxrc.com/sCareer?industry=0&listvalue=1&ordertype=0&pagesize=20&postype=5467&welfare=&page=1")
+jobNames,jobCompanys,jobSalarys,jobPlaces,jobNumbers,jobEducations,jobExperiences = getInformation("https://s.gxrc.com/sCareer?industry=0&listvalue=1&ordertype=0&pagesize=20&postype=5467&welfare=&page=5")
 jobDescribes = getDetailInformation(jobNames)
 savedata(jobNames,jobCompanys,jobSalarys,jobPlaces,jobNumbers,jobEducations,jobExperiences, jobDescribes)
 
